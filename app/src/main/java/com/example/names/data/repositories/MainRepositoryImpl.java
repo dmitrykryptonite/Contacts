@@ -12,11 +12,13 @@ import io.reactivex.Observable;
 
 public class MainRepositoryImpl implements MainRepository {
     private static MainRepositoryImpl instance;
+
     public static MainRepositoryImpl getInstance() {
         if (instance == null)
             instance = new MainRepositoryImpl();
         return instance;
     }
+
     private DatabaseNamesManager databaseNamesManager = DatabaseNamesManager.getInstance();
     public Observable<List<Name>> namesUpdateListener = databaseNamesManager.namesUpdateListener;
 

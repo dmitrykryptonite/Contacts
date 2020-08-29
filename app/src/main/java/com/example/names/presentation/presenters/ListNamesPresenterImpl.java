@@ -7,41 +7,27 @@ import com.example.names.presentation.view.ListNamesView;
 import java.util.List;
 
 import io.reactivex.Completable;
-import io.reactivex.CompletableObserver;
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class ListNamesPresenterImpl implements ListNamesPresenter {
     private ListNamesView listNamesView;
     private ListNamesInteractorImpl listNamesInteractorImpl = new ListNamesInteractorImpl();
+    private Disposable disposableUpdateListNames, disposableDeleteItem;
 
     public ListNamesPresenterImpl(final ListNamesView listNamesView) {
         this.listNamesView = listNamesView;
         Observable<List<Name>> namesUpdateListener = listNamesInteractorImpl.namesUpdateListener;
-        namesUpdateListener.subscribeOn(Schedulers.io())
+        disposableUpdateListNames = namesUpdateListener.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<Name>>() {
+                .subscribe(new Consumer<List<Name>>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(List<Name> names) {
+                    public void accept(List<Name> names) {
                         listNamesView.updateNamesList(names);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
                     }
                 });
     }
@@ -51,26 +37,31 @@ public class ListNamesPresenterImpl implements ListNamesPresenter {
         listNamesInteractorImpl.getListNames();
     }
 
+
     @Override
     public void onBtnDeleteClicked(Name name) {
         Completable deleteItem = listNamesInteractorImpl.deleteItem(name);
-        deleteItem.subscribeOn(Schedulers.io())
+        disposableDeleteItem = deleteItem.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CompletableObserver() {
+                .subscribe(new Action() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
+                    public void run() {
                         listNamesView.showSuccessMassage("Name deleted");
                     }
-
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void onError(Throwable e) {
-                        listNamesView.showErrorMassage(e.getMessage());
+                    public void accept(Throwable throwable) {
+                        listNamesView.showErrorMassage(throwable.getMessage());
                     }
                 });
+    }
+
+    @Override
+    public void releasePresenter() {
+        if (disposableUpdateListNames != null && disposableUpdateListNames.isDisposed())
+            disposableUpdateListNames.dispose();
+        if (disposableDeleteItem != null && disposableDeleteItem.isDisposed())
+            disposableDeleteItem.dispose();
+        listNamesView = null;
     }
 }

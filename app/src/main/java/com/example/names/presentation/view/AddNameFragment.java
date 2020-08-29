@@ -22,13 +22,14 @@ import com.example.names.presentation.presenters.AddNamePresenterImpl;
 
 public class AddNameFragment extends Fragment implements AddNameView {
     private EditText etName;
+    private AddNamePresenter presenter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragmet_add_name, container, false);
-        final AddNamePresenter presenter = new AddNamePresenterImpl(this);
+        presenter = new AddNamePresenterImpl(this);
         etName = view.findViewById(R.id.etName);
         Button btnSubmit = view.findViewById(R.id.btnSubmit);
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -76,5 +77,12 @@ public class AddNameFragment extends Fragment implements AddNameView {
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         assert (imm != null);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public void onDestroy() {
+        presenter.releasePresenter();
+        presenter = null;
+        super.onDestroy();
     }
 }

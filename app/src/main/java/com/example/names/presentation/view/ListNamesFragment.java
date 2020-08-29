@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -58,5 +57,12 @@ public class ListNamesFragment extends Fragment implements ListNamesView {
     @Override
     public void showErrorMassage(String massage) {
         Toast.makeText(getContext(), massage, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDestroy() {
+        presenter.releasePresenter();
+        presenter = null;
+        super.onDestroy();
     }
 }

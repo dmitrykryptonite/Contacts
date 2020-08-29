@@ -9,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.example.names.R;
 import com.example.names.domain.entities.Name;
 import com.example.names.presentation.view.ListNamesFragment;
@@ -59,6 +58,7 @@ public class ListNamesRecyclerViewAdapter extends RecyclerView.Adapter<ListNames
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvItemName;
         ImageView imgDeleteName;
+
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvItemName = itemView.findViewById(R.id.tvItemName);

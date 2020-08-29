@@ -6,5 +6,6 @@ import io.reactivex.Completable;
 
 public interface ListNamesInteractor {
     Completable deleteItem(Name name);
+
     void getListNames();
 }

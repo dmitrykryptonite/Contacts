@@ -11,6 +11,7 @@ import io.reactivex.Observable;
 public class ListNamesInteractorImpl implements ListNamesInteractor {
     private MainRepositoryImpl mainRepositoryImpl = MainRepositoryImpl.getInstance();
     public Observable<List<Name>> namesUpdateListener = mainRepositoryImpl.namesUpdateListener;
+
     @Override
     public Completable deleteItem(Name name) {
         return mainRepositoryImpl.deleteItem(name);

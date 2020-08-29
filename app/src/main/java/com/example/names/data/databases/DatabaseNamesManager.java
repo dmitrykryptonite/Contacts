@@ -23,6 +23,7 @@ import static com.example.names.data.databases.DatabaseNames.TABLE_NAMES;
 
 public class DatabaseNamesManager {
     private static DatabaseNamesManager instance;
+
     public static DatabaseNamesManager getInstance() {
         if (instance == null)
             instance = new DatabaseNamesManager();
@@ -32,10 +33,11 @@ public class DatabaseNamesManager {
     public Observable<List<Name>> namesUpdateListener;
     private ObservableEmitter<List<Name>> emitter;
     private DatabaseNames databaseNames;
+
     private DatabaseNamesManager() {
         namesUpdateListener = Observable.create(new ObservableOnSubscribe<List<Name>>() {
             @Override
-            public void subscribe(ObservableEmitter<List<Name>> emitter) throws Exception {
+            public void subscribe(ObservableEmitter<List<Name>> emitter) {
                 DatabaseNamesManager.this.emitter = emitter;
             }
         });
@@ -43,6 +45,7 @@ public class DatabaseNamesManager {
     }
 
     private int connectionsCount = 0;
+
     private void closeDB() {
         connectionsCount--;
         if (connectionsCount == 0) {
@@ -57,7 +60,7 @@ public class DatabaseNamesManager {
     public Completable addName(final String name) {
         return Completable.create(new CompletableOnSubscribe() {
             @Override
-            public void subscribe(CompletableEmitter emitter) throws Exception {
+            public void subscribe(CompletableEmitter emitter) {
                 ContentValues values = new ContentValues();
                 SQLiteDatabase sqLiteDatabase = databaseNames.getWritableDatabase();
                 connectionsCount++;
@@ -93,7 +96,7 @@ public class DatabaseNamesManager {
     public Completable deleteAllNames() {
         return Completable.create(new CompletableOnSubscribe() {
             @Override
-            public void subscribe(CompletableEmitter emitter) throws Exception {
+            public void subscribe(CompletableEmitter emitter) {
                 SQLiteDatabase sqLiteDatabase = databaseNames.getWritableDatabase();
                 connectionsCount++;
                 sqLiteDatabase.delete("names", null, null);
@@ -107,7 +110,7 @@ public class DatabaseNamesManager {
     public Completable deleteItem(final Name name) {
         return Completable.create(new CompletableOnSubscribe() {
             @Override
-            public void subscribe(CompletableEmitter emitter) throws Exception {
+            public void subscribe(CompletableEmitter emitter) {
                 SQLiteDatabase sqLiteDatabase = databaseNames.getWritableDatabase();
                 connectionsCount++;
                 sqLiteDatabase.execSQL("DELETE FROM " + TABLE_NAMES + " WHERE _id = " +

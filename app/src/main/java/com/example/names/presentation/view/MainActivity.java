@@ -1,16 +1,16 @@
 package com.example.names.presentation.view;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.names.R;
 import com.example.names.presentation.presenters.MainPresenter;
@@ -76,5 +76,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void showErrorMassage(String massage) {
         Toast.makeText(this, massage, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        presenter.releasePresenter();
+        presenter = null;
+        super.onDestroy();
     }
 }
