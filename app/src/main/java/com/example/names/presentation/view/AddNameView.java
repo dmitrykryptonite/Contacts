@@ -5,6 +5,8 @@ public interface AddNameView {
 
     void showErrorMassage(String massage);
 
+    void showMassageEditTextIsEmpty(String massage);
+
     void editTextClearFocus();
 
     void setTextEditText(String text);

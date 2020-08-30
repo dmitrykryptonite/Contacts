@@ -20,6 +20,17 @@ public class AddNamePresenterImpl implements AddNamePresenter {
     }
 
     @Override
+    public void valueEditTextIsEmpty() {
+        addNameView.showMassageEditTextIsEmpty("The line must not be empty");
+    }
+
+    @Override
+    public void onRootViewClicked() {
+        addNameView.hideKeyboard();
+        addNameView.editTextClearFocus();
+    }
+
+    @Override
     public void onBtnSubmitClicked(String name) {
         Completable saveName = addNameInteractorImpl.saveName(name);
         disposableSaveName = saveName.subscribeOn(Schedulers.io())
@@ -41,15 +52,10 @@ public class AddNamePresenterImpl implements AddNamePresenter {
     }
 
     @Override
-    public void onRootViewClicked() {
-        addNameView.hideKeyboard();
-        addNameView.editTextClearFocus();
-    }
-
-    @Override
     public void releasePresenter() {
         if (disposableSaveName != null && disposableSaveName.isDisposed())
             disposableSaveName.dispose();
         addNameView = null;
     }
+
 }

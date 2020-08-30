@@ -35,7 +35,11 @@ public class AddNameFragment extends Fragment implements AddNameView {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onBtnSubmitClicked(etName.getText().toString());
+                String name = etName.getText().toString();
+                if (name.isEmpty())
+                    presenter.valueEditTextIsEmpty();
+                else
+                    presenter.onBtnSubmitClicked(etName.getText().toString());
             }
         });
         RelativeLayout rootView = view.findViewById(R.id.rootView);
@@ -56,6 +60,11 @@ public class AddNameFragment extends Fragment implements AddNameView {
     @Override
     public void showErrorMassage(String massage) {
         Toast.makeText(getContext(), massage, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showMassageEditTextIsEmpty(String massage) {
+        Toast.makeText(getContext(), massage, Toast.LENGTH_LONG).show();
     }
 
     @Override
