@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme.Base" parent="Theme.AppCompat.Light"/>
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light" />
 
     <style name="AppTheme" parent="AppTheme.Base">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -21,6 +21,10 @@
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/colorPrimary</item>
         <item name="colorControlHighlight">@color/colorPrimary</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18sp</item>
     </style>
 
 </resources>
