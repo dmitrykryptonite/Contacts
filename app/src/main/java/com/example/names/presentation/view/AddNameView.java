@@ -11,5 +11,7 @@ public interface AddNameView {
 
     void setTextEditText(String text);
 
+    void showKeyboard();
+
     void hideKeyboard();
 }

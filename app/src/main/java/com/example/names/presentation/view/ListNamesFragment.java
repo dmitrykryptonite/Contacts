@@ -35,7 +35,7 @@ public class ListNamesFragment extends Fragment implements ListNamesView {
         rvListNames.setLayoutManager(llm);
         adapter = new ListNamesRecyclerViewAdapter(this);
         rvListNames.setAdapter(adapter);
-        presenter.onViewCreated();
+        presenter.onCreateView();
         return view;
     }
 
@@ -61,8 +61,8 @@ public class ListNamesFragment extends Fragment implements ListNamesView {
 
     @Override
     public void onDestroy() {
+        super.onDestroy();
         presenter.releasePresenter();
         presenter = null;
-        super.onDestroy();
     }
 }

@@ -33,7 +33,7 @@ public class ListNamesPresenterImpl implements ListNamesPresenter {
     }
 
     @Override
-    public void onViewCreated() {
+    public void onCreateView() {
         listNamesInteractorImpl.getListNames();
     }
 

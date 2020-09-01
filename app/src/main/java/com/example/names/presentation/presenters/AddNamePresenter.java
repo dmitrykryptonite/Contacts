@@ -7,5 +7,7 @@ public interface AddNamePresenter {
 
     void onBtnSubmitClicked(String name);
 
+    void onEditTextFocusChanged(boolean hasFocused);
+
     void releasePresenter();
 }

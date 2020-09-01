@@ -52,6 +52,14 @@ public class AddNamePresenterImpl implements AddNamePresenter {
     }
 
     @Override
+    public void onEditTextFocusChanged(boolean hasFocused) {
+        if (hasFocused)
+            addNameView.showKeyboard();
+        else
+            addNameView.hideKeyboard();
+    }
+
+    @Override
     public void releasePresenter() {
         if (disposableSaveName != null && disposableSaveName.isDisposed())
             disposableSaveName.dispose();
