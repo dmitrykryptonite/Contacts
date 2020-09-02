@@ -16,15 +16,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.example.names.R;
 import com.example.names.presentation.presenters.AddNamePresenter;
-import com.example.names.presentation.presenters.AddNamePresenterImpl;
 
-public class AddNameFragment extends Fragment implements AddNameView {
+import moxy.MvpAppCompatFragment;
+import moxy.presenter.InjectPresenter;
+
+public class AddNameFragment extends MvpAppCompatFragment implements AddNameView {
     private EditText etName;
-    private AddNamePresenter presenter;
+    @InjectPresenter
+    AddNamePresenter presenter;
     private RelativeLayout rootView;
 
     @SuppressLint("ClickableViewAccessibility")
@@ -33,7 +35,6 @@ public class AddNameFragment extends Fragment implements AddNameView {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragmet_add_name, container, false);
-        presenter = new AddNamePresenterImpl(this);
         etName = view.findViewById(R.id.etName);
         etName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

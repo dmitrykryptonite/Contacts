@@ -8,17 +8,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.names.R;
 import com.example.names.presentation.presenters.MainPresenter;
-import com.example.names.presentation.presenters.MainPresenterImpl;
 import com.example.names.presentation.ui.adapters.MainFragmentPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity implements MainView {
+import moxy.MvpAppCompatActivity;
+import moxy.presenter.InjectPresenter;
+
+public class MainActivity extends MvpAppCompatActivity implements MainView {
+    @InjectPresenter
     MainPresenter presenter;
 
     @Override
@@ -35,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
         tabs.setupWithViewPager(viewPager);
-        presenter = new MainPresenterImpl(this);
     }
 
     @Override
@@ -53,12 +54,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     private void deleteAllNames() {
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (which == DialogInterface.BUTTON_POSITIVE) {
-                    presenter.onBtnDeleteClicked();
-                }
+        DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+            if (which == DialogInterface.BUTTON_POSITIVE) {
+                presenter.onBtnDeleteClicked();
             }
         };
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

@@ -8,20 +8,22 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.names.R;
 import com.example.names.domain.entities.Name;
 import com.example.names.presentation.presenters.ListNamesPresenter;
-import com.example.names.presentation.presenters.ListNamesPresenterImpl;
 import com.example.names.presentation.ui.adapters.ListNamesRecyclerViewAdapter;
 
 import java.util.List;
 
-public class ListNamesFragment extends Fragment implements ListNamesView {
-    private ListNamesPresenter presenter;
+import moxy.MvpAppCompatFragment;
+import moxy.presenter.InjectPresenter;
+
+public class ListNamesFragment extends MvpAppCompatFragment implements ListNamesView {
+    @InjectPresenter
+    ListNamesPresenter presenter;
     private ListNamesRecyclerViewAdapter adapter;
 
     @Nullable
@@ -29,7 +31,6 @@ public class ListNamesFragment extends Fragment implements ListNamesView {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_names, container, false);
-        presenter = new ListNamesPresenterImpl(this);
         RecyclerView rvListNames = view.findViewById(R.id.rvListNames);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rvListNames.setLayoutManager(llm);
