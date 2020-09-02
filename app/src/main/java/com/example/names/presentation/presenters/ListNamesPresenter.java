@@ -10,8 +10,6 @@ import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
@@ -25,12 +23,7 @@ public class ListNamesPresenter extends MvpPresenter<ListNamesView> {
         Observable<List<Name>> namesUpdateListener = listNamesInteractorImpl.namesUpdateListener;
         disposableUpdateListNames = namesUpdateListener.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<List<Name>>() {
-                    @Override
-                    public void accept(List<Name> names) {
-                        getViewState().updateNamesList(names);
-                    }
-                });
+                .subscribe(names -> getViewState().updateNamesList(names));
     }
 
     public void onCreateView() {
@@ -41,17 +34,8 @@ public class ListNamesPresenter extends MvpPresenter<ListNamesView> {
         Completable deleteItem = listNamesInteractorImpl.deleteItem(name);
         disposableDeleteItem = deleteItem.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action() {
-                    @Override
-                    public void run() {
-                        getViewState().showSuccessMassage("Name deleted");
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) {
-                        getViewState().showErrorMassage(throwable.getMessage());
-                    }
-                });
+                .subscribe(() -> getViewState().showSuccessMassage("Name deleted"),
+                        throwable -> getViewState().showErrorMassage(throwable.getMessage()));
     }
 
     public void releasePresenter() {

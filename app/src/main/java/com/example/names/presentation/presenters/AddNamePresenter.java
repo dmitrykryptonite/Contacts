@@ -6,8 +6,6 @@ import com.example.names.presentation.view.AddNameView;
 import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
@@ -22,35 +20,29 @@ public class AddNamePresenter extends MvpPresenter<AddNameView> {
     }
 
     public void onRootViewClicked() {
+        getViewState().rootViewIsFocused();
         getViewState().hideKeyboard();
-        getViewState().editTextClearFocus();
     }
 
     public void onBtnSubmitClicked(String name) {
         Completable saveName = addNameInteractorImpl.saveName(name);
         disposableSaveName = saveName.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action() {
-                    @Override
-                    public void run() {
-                        getViewState().editTextClearFocus();
-                        getViewState().setTextEditText("");
-                        getViewState().hideKeyboard();
-                        getViewState().showSuccessMassage("Name saved");
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) {
-                        getViewState().showErrorMassage(throwable.getMessage());
-                    }
-                });
+                .subscribe(() -> {
+                    getViewState().rootViewIsFocused();
+                    getViewState().setTextEditText("");
+                    getViewState().hideKeyboard();
+                    getViewState().showSuccessMassage("Name saved");
+                }, throwable -> getViewState().showErrorMassage(throwable.getMessage()));
     }
 
-    public void onEditTextFocusChanged(boolean hasFocused) {
-        if (hasFocused)
+    public void onEditTextFocusChanged(boolean hasFocus) {
+        if (hasFocus)
             getViewState().showKeyboard();
-        else
+        else {
+            getViewState().rootViewIsFocused();
             getViewState().hideKeyboard();
+        }
     }
 
     public void releasePresenter() {

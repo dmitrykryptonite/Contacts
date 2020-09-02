@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -36,30 +35,19 @@ public class AddNameFragment extends MvpAppCompatFragment implements AddNameView
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragmet_add_name, container, false);
         etName = view.findViewById(R.id.etName);
-        etName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                presenter.onEditTextFocusChanged(hasFocus);
-            }
-        });
+        etName.setOnFocusChangeListener((v, hasFocus) -> presenter.onEditTextFocusChanged(hasFocus));
         Button btnSubmit = view.findViewById(R.id.btnSubmit);
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = etName.getText().toString();
-                if (name.isEmpty())
-                    presenter.valueEditTextIsEmpty();
-                else
-                    presenter.onBtnSubmitClicked(etName.getText().toString());
-            }
+        btnSubmit.setOnClickListener(v -> {
+            String name = etName.getText().toString();
+            if (name.isEmpty())
+                presenter.valueEditTextIsEmpty();
+            else
+                presenter.onBtnSubmitClicked(etName.getText().toString());
         });
         rootView = view.findViewById(R.id.rootView);
-        rootView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                presenter.onRootViewClicked();
-                return false;
-            }
+        rootView.setOnTouchListener((v, event) -> {
+            presenter.onRootViewClicked();
+            return false;
         });
         return view;
     }
@@ -80,7 +68,7 @@ public class AddNameFragment extends MvpAppCompatFragment implements AddNameView
     }
 
     @Override
-    public void editTextClearFocus() {
+    public void rootViewIsFocused() {
         rootView.requestFocus();
     }
 
@@ -96,7 +84,7 @@ public class AddNameFragment extends MvpAppCompatFragment implements AddNameView
         final InputMethodManager imm = (InputMethodManager) activity
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         assert (imm != null);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        imm.showSoftInput(etName, InputMethodManager.SHOW_FORCED);
     }
 
     @Override
