@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".presentation.view.EditorActivity">
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/centerVertical"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_vertical"
+        android:hint="@string/enter_your_name_please"
+        android:importantForAutofill="no"
+        android:inputType="text|textCapSentences"
+        android:lines="1"
+        android:maxLines="1"
+        android:paddingStart="5dp"
+        android:paddingLeft="5dp"
+        android:paddingEnd="0dp"
+        android:paddingRight="0dp"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        android:theme="@style/EditTextTheme" />
+
+    <TextView
+        android:id="@+id/centerVertical"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/centerHorizontal"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/imgCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/centerVertical"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_toStartOf="@+id/centerHorizontal"
+        android:layout_toLeftOf="@+id/centerHorizontal"
+        android:contentDescription="@string/image_cancel_changing"
+        android:src="@drawable/ic_cancel_red" />
+
+    <ImageView
+        android:id="@+id/imgSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/centerVertical"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_toEndOf="@+id/centerHorizontal"
+        android:layout_toRightOf="@+id/centerHorizontal"
+        android:contentDescription="@string/image_submit_changing"
+        android:src="@drawable/ic_submit_green" />
+
+</RelativeLayout>

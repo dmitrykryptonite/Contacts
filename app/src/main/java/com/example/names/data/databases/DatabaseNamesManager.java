@@ -11,11 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Completable;
-import io.reactivex.CompletableEmitter;
-import io.reactivex.CompletableOnSubscribe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 
 import static com.example.names.data.databases.DatabaseNames.NAME_ID;
 import static com.example.names.data.databases.DatabaseNames.TABLE_NAMES;
@@ -35,12 +32,7 @@ public class DatabaseNamesManager {
     private DatabaseNames databaseNames;
 
     private DatabaseNamesManager() {
-        namesUpdateListener = Observable.create(new ObservableOnSubscribe<List<Name>>() {
-            @Override
-            public void subscribe(ObservableEmitter<List<Name>> emitter) {
-                DatabaseNamesManager.this.emitter = emitter;
-            }
-        });
+        namesUpdateListener = Observable.create(emitter -> DatabaseNamesManager.this.emitter = emitter);
         databaseNames = new DatabaseNames(App.getApp());
     }
 
@@ -58,18 +50,15 @@ public class DatabaseNamesManager {
     }
 
     public Completable addName(final String name) {
-        return Completable.create(new CompletableOnSubscribe() {
-            @Override
-            public void subscribe(CompletableEmitter emitter) {
-                ContentValues values = new ContentValues();
-                SQLiteDatabase sqLiteDatabase = databaseNames.getWritableDatabase();
-                connectionsCount++;
-                values.put("name", name);
-                sqLiteDatabase.insert("names", null, values);
-                closeDB();
-                emitter.onComplete();
-                DatabaseNamesManager.this.emitter.onNext(getAllNames());
-            }
+        return Completable.create(emitter -> {
+            ContentValues values = new ContentValues();
+            SQLiteDatabase sqLiteDatabase = databaseNames.getWritableDatabase();
+            connectionsCount++;
+            values.put("name", name);
+            sqLiteDatabase.insert("names", null, values);
+            closeDB();
+            emitter.onComplete();
+            DatabaseNamesManager.this.emitter.onNext(getAllNames());
         });
     }
 
@@ -94,31 +83,25 @@ public class DatabaseNamesManager {
     }
 
     public Completable deleteAllNames() {
-        return Completable.create(new CompletableOnSubscribe() {
-            @Override
-            public void subscribe(CompletableEmitter emitter) {
-                SQLiteDatabase sqLiteDatabase = databaseNames.getWritableDatabase();
-                connectionsCount++;
-                sqLiteDatabase.delete("names", null, null);
-                closeDB();
-                emitter.onComplete();
-                DatabaseNamesManager.this.emitter.onNext(getAllNames());
-            }
+        return Completable.create(emitter -> {
+            SQLiteDatabase sqLiteDatabase = databaseNames.getWritableDatabase();
+            connectionsCount++;
+            sqLiteDatabase.delete("names", null, null);
+            closeDB();
+            emitter.onComplete();
+            DatabaseNamesManager.this.emitter.onNext(getAllNames());
         });
     }
 
     public Completable deleteItem(final Name name) {
-        return Completable.create(new CompletableOnSubscribe() {
-            @Override
-            public void subscribe(CompletableEmitter emitter) {
-                SQLiteDatabase sqLiteDatabase = databaseNames.getWritableDatabase();
-                connectionsCount++;
-                sqLiteDatabase.execSQL("DELETE FROM " + TABLE_NAMES + " WHERE _id = " +
-                        name.getId());
-                closeDB();
-                emitter.onComplete();
-                DatabaseNamesManager.this.emitter.onNext(getAllNames());
-            }
+        return Completable.create(emitter -> {
+            SQLiteDatabase sqLiteDatabase = databaseNames.getWritableDatabase();
+            connectionsCount++;
+            sqLiteDatabase.execSQL("DELETE FROM " + TABLE_NAMES + " WHERE _id = " +
+                    name.getId());
+            closeDB();
+            emitter.onComplete();
+            DatabaseNamesManager.this.emitter.onNext(getAllNames());
         });
     }
 }

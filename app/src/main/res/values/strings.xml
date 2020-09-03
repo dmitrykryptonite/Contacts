@@ -8,4 +8,5 @@
     <string name="image_delete_name">Image : delete name</string>
     <string name="image_cancel_changing">Image: cancel changing</string>
     <string name="image_submit_changing">Image: submit changing</string>
+    <string name="image_edit_name">Image: edit name</string>
 </resources>

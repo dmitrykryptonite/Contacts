@@ -46,6 +46,9 @@ public class ListNamesRecyclerViewAdapter extends RecyclerView.Adapter<ListNames
         holder.tvItemName.measure(-1, -1);
         holder.tvItemName.setTextIsSelectable(true);
         holder.imgDeleteName.setOnClickListener(v -> fragment.deleteItem(name));
+        holder.imgEditName.setOnClickListener(v -> {
+
+        });
     }
 
     @Override
@@ -55,12 +58,13 @@ public class ListNamesRecyclerViewAdapter extends RecyclerView.Adapter<ListNames
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvItemName;
-        ImageView imgDeleteName;
+        ImageView imgDeleteName, imgEditName;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvItemName = itemView.findViewById(R.id.tvItemName);
             imgDeleteName = itemView.findViewById(R.id.imgDeleteName);
+            imgEditName = itemView.findViewById(R.id.imgEditName);
         }
     }
 }
