@@ -42,12 +42,10 @@ public class ListNamesRecyclerViewAdapter extends RecyclerView.Adapter<ListNames
     public void onBindViewHolder(@NonNull ListNamesRecyclerViewAdapter.ViewHolder holder, int position) {
         final Name name = namesList.get(position);
         holder.tvItemName.setText(name.getName());
-        holder.imgDeleteName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragment.deleteItem(name);
-            }
-        });
+        holder.tvItemName.setTextIsSelectable(false);
+        holder.tvItemName.measure(-1, -1);
+        holder.tvItemName.setTextIsSelectable(true);
+        holder.imgDeleteName.setOnClickListener(v -> fragment.deleteItem(name));
     }
 
     @Override

@@ -16,7 +16,20 @@ public class AddNamePresenter extends MvpPresenter<AddNameView> {
     private Disposable disposableSaveName;
 
     public void valueEditTextIsEmpty() {
-        getViewState().showMassageEditTextIsEmpty("The line must not be empty");
+        getViewState().showErrorMassage("The line must not be empty");
+    }
+
+    public void lengthEditTextIsWrong() {
+        getViewState().showErrorMassage("Sorry, length name must be 1-40 symbols");
+    }
+
+    public void correctLengthEditText() {
+        getViewState().correctLengthEditText();
+    }
+
+    public void wrongLengthEditText() {
+        getViewState().wrongLengthEditText();
+        getViewState().showErrorMassage("Sorry, length name must be 1-40 symbols");
     }
 
     public void onRootViewClicked() {

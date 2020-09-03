@@ -3,7 +3,10 @@ package com.example.names.presentation.view;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,11 +39,30 @@ public class AddNameFragment extends MvpAppCompatFragment implements AddNameView
         View view = inflater.inflate(R.layout.fragmet_add_name, container, false);
         etName = view.findViewById(R.id.etName);
         etName.setOnFocusChangeListener((v, hasFocus) -> presenter.onEditTextFocusChanged(hasFocus));
+        etName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() >= 41)
+                    presenter.wrongLengthEditText();
+                else
+                    presenter.correctLengthEditText();
+            }
+        });
         Button btnSubmit = view.findViewById(R.id.btnSubmit);
         btnSubmit.setOnClickListener(v -> {
             String name = etName.getText().toString();
             if (name.isEmpty())
                 presenter.valueEditTextIsEmpty();
+            else if (name.length() >= 41)
+                presenter.lengthEditTextIsWrong();
             else
                 presenter.onBtnSubmitClicked(etName.getText().toString());
         });
@@ -63,13 +85,20 @@ public class AddNameFragment extends MvpAppCompatFragment implements AddNameView
     }
 
     @Override
-    public void showMassageEditTextIsEmpty(String massage) {
-        Toast.makeText(getContext(), massage, Toast.LENGTH_LONG).show();
+    public void rootViewIsFocused() {
+        rootView.requestFocus();
     }
 
     @Override
-    public void rootViewIsFocused() {
-        rootView.requestFocus();
+    public void correctLengthEditText() {
+        etName.getBackground().mutate().setColorFilter(getResources()
+                .getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+    }
+
+    @Override
+    public void wrongLengthEditText() {
+        etName.getBackground().mutate().setColorFilter(getResources()
+                .getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
     }
 
     @Override
