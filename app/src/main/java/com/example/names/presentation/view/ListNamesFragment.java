@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.names.R;
 import com.example.names.domain.entities.Name;
+import com.example.names.navigation.Router;
 import com.example.names.presentation.presenters.ListNamesPresenter;
 import com.example.names.presentation.ui.adapters.ListNamesRecyclerViewAdapter;
 
@@ -25,6 +26,7 @@ public class ListNamesFragment extends MvpAppCompatFragment implements ListNames
     @InjectPresenter
     ListNamesPresenter presenter;
     private ListNamesRecyclerViewAdapter adapter;
+    private Router router;
 
     @Nullable
     @Override
@@ -37,6 +39,7 @@ public class ListNamesFragment extends MvpAppCompatFragment implements ListNames
         adapter = new ListNamesRecyclerViewAdapter(this);
         rvListNames.setAdapter(adapter);
         presenter.onCreateView();
+        router = new Router(getActivity());
         return view;
     }
 
@@ -58,6 +61,11 @@ public class ListNamesFragment extends MvpAppCompatFragment implements ListNames
     @Override
     public void showErrorMassage(String massage) {
         Toast.makeText(getContext(), massage, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void openEditItemScreen() {
+        presenter.setRouter(router);
     }
 
     @Override

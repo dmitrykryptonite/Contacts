@@ -20,4 +20,7 @@ public interface ListNamesView extends MvpView {
 
     @StateStrategyType(SkipStrategy.class)
     void showErrorMassage(String massage);
+
+    @StateStrategyType(SkipStrategy.class)
+    void openEditItemScreen();
 }

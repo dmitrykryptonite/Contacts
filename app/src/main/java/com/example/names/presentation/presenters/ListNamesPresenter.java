@@ -2,6 +2,7 @@ package com.example.names.presentation.presenters;
 
 import com.example.names.domain.ListNamesInteractorImpl;
 import com.example.names.domain.entities.Name;
+import com.example.names.navigation.Router;
 import com.example.names.presentation.view.ListNamesView;
 
 import java.util.List;
@@ -43,5 +44,9 @@ public class ListNamesPresenter extends MvpPresenter<ListNamesView> {
             disposableUpdateListNames.dispose();
         if (disposableDeleteItem != null && disposableDeleteItem.isDisposed())
             disposableDeleteItem.dispose();
+    }
+
+    public void setRouter(Router router) {
+        router.openEditItemScreen();
     }
 }
