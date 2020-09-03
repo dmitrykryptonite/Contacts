@@ -1,10 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Names</string>
-    <string name="enter_your_name_please"
-        tools:ignore="TypographyEllipsis">Enter your name, please...</string>
+    <string name="enter_your_name_please" tools:ignore="TypographyEllipsis">Enter your name, please...</string>
     <string name="submit">SUBMIT</string>
     <string name="delete_all_names">Delete all names</string>
     <string name="are_you_sure_delete_all_names">Are you sure delete all names?</string>
     <string name="names">NAMES</string>
     <string name="image_delete_name">Image : delete name</string>
+    <string name="image_cancel_changing">Image: cancel changing</string>
+    <string name="image_submit_changing">Image: submit changing</string>
 </resources>
