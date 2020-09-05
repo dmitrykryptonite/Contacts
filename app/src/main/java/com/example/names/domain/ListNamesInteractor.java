@@ -8,4 +8,6 @@ public interface ListNamesInteractor {
     Completable deleteItem(Name name);
 
     void getListNames();
+
+    void saveEditName(Name name);
 }

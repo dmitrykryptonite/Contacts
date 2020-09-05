@@ -19,6 +19,7 @@ import moxy.MvpPresenter;
 public class ListNamesPresenter extends MvpPresenter<ListNamesView> {
     private ListNamesInteractorImpl listNamesInteractorImpl = new ListNamesInteractorImpl();
     private Disposable disposableUpdateListNames, disposableDeleteItem;
+    private Router router;
 
     public ListNamesPresenter() {
         Observable<List<Name>> namesUpdateListener = listNamesInteractorImpl.namesUpdateListener;
@@ -47,6 +48,11 @@ public class ListNamesPresenter extends MvpPresenter<ListNamesView> {
     }
 
     public void setRouter(Router router) {
+        this.router = router;
+    }
+
+    public void onBtnEditClicked(Name name) {
+        listNamesInteractorImpl.saveEditName(name);
         router.openEditItemScreen();
     }
 }

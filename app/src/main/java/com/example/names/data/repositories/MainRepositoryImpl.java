@@ -1,5 +1,6 @@
 package com.example.names.data.repositories;
 
+import com.example.names.data.SharedPreferencesManager;
 import com.example.names.data.databases.DatabaseNamesManager;
 import com.example.names.domain.MainRepository;
 import com.example.names.domain.entities.Name;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 
 public class MainRepositoryImpl implements MainRepository {
@@ -21,6 +23,7 @@ public class MainRepositoryImpl implements MainRepository {
 
     private DatabaseNamesManager databaseNamesManager = DatabaseNamesManager.getInstance();
     public Observable<List<Name>> namesUpdateListener = databaseNamesManager.namesUpdateListener;
+    private SharedPreferencesManager sharedPreferencesManager = SharedPreferencesManager.getInstance();
 
     @Override
     public Completable saveName(String name) {
@@ -40,5 +43,15 @@ public class MainRepositoryImpl implements MainRepository {
     @Override
     public void getListNames() {
         databaseNamesManager.getListNames();
+    }
+
+    @Override
+    public void saveEditName(Name name) {
+        sharedPreferencesManager.saveEditName(name);
+    }
+
+    @Override
+    public Single<Name> getEditName() {
+        return sharedPreferencesManager.getEditName();
     }
 }

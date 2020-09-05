@@ -21,4 +21,9 @@ public class ListNamesInteractorImpl implements ListNamesInteractor {
     public void getListNames() {
         mainRepositoryImpl.getListNames();
     }
+
+    @Override
+    public void saveEditName(Name name) {
+        mainRepositoryImpl.saveEditName(name);
+    }
 }

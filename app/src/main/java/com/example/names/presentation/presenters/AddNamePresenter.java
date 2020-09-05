@@ -58,6 +58,11 @@ public class AddNamePresenter extends MvpPresenter<AddNameView> {
         }
     }
 
+    public void onPauseFragment() {
+        getViewState().rootViewIsFocused();
+        getViewState().hideKeyboard();
+    }
+
     public void releasePresenter() {
         if (disposableSaveName != null && disposableSaveName.isDisposed())
             disposableSaveName.dispose();

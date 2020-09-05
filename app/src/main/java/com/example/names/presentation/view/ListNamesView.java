@@ -22,5 +22,5 @@ public interface ListNamesView extends MvpView {
     void showErrorMassage(String massage);
 
     @StateStrategyType(SkipStrategy.class)
-    void openEditItemScreen();
+    void openEditItemScreen(Name name);
 }

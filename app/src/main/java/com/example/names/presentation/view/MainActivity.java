@@ -1,9 +1,13 @@
 package com.example.names.presentation.view;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -77,9 +81,25 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     }
 
     @Override
+    public void hideKeyboard() {
+        final Activity activity = MainActivity.this;
+        final View view = activity.getWindow().getDecorView();
+        final InputMethodManager imm = (InputMethodManager) activity
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        assert (imm != null);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        presenter.onPauseActivity();
+    }
+
+    @Override
     protected void onDestroy() {
+        super.onDestroy();
         presenter.releasePresenter();
         presenter = null;
-        super.onDestroy();
     }
 }

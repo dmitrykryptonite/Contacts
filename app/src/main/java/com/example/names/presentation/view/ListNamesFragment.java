@@ -26,7 +26,6 @@ public class ListNamesFragment extends MvpAppCompatFragment implements ListNames
     @InjectPresenter
     ListNamesPresenter presenter;
     private ListNamesRecyclerViewAdapter adapter;
-    private Router router;
 
     @Nullable
     @Override
@@ -39,7 +38,8 @@ public class ListNamesFragment extends MvpAppCompatFragment implements ListNames
         adapter = new ListNamesRecyclerViewAdapter(this);
         rvListNames.setAdapter(adapter);
         presenter.onCreateView();
-        router = new Router(getActivity());
+        Router router = new Router(getActivity());
+        presenter.setRouter(router);
         return view;
     }
 
@@ -64,8 +64,8 @@ public class ListNamesFragment extends MvpAppCompatFragment implements ListNames
     }
 
     @Override
-    public void openEditItemScreen() {
-        presenter.setRouter(router);
+    public void openEditItemScreen(Name name) {
+        presenter.onBtnEditClicked(name);
     }
 
     @Override

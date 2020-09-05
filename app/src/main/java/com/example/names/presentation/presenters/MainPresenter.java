@@ -27,4 +27,8 @@ public class MainPresenter extends MvpPresenter<MainView> {
         if (disposableDeleteAllNames != null && disposableDeleteAllNames.isDisposed())
             disposableDeleteAllNames.dispose();
     }
+
+    public void onPauseActivity() {
+        getViewState().hideKeyboard();
+    }
 }
