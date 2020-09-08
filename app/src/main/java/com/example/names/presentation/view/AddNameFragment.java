@@ -50,21 +50,20 @@ public class AddNameFragment extends MvpAppCompatFragment implements AddNameView
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length() >= 41)
+                if (s.length() >= 41) {
+                    etName.getBackground().mutate().setColorFilter(getResources()
+                            .getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
                     presenter.wrongLengthEditText();
+                }
                 else
-                    presenter.correctLengthEditText();
+                    etName.getBackground().mutate().setColorFilter(getResources()
+                            .getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
             }
         });
         Button btnSubmit = view.findViewById(R.id.btnSubmit);
         btnSubmit.setOnClickListener(v -> {
             String name = etName.getText().toString();
-            if (name.isEmpty())
-                presenter.valueEditTextIsEmpty();
-            else if (name.length() >= 41)
-                presenter.lengthEditTextIsWrong();
-            else
-                presenter.onBtnSubmitClicked(etName.getText().toString());
+            presenter.onBtnSubmitClicked(name);
         });
         rootView = view.findViewById(R.id.rootView);
         rootView.setOnTouchListener((v, event) -> {
@@ -85,20 +84,13 @@ public class AddNameFragment extends MvpAppCompatFragment implements AddNameView
     }
 
     @Override
+    public void showWarningMassage(String massage) {
+        Toast.makeText(getContext(), massage, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void rootViewIsFocused() {
         rootView.requestFocus();
-    }
-
-    @Override
-    public void correctLengthEditText() {
-        etName.getBackground().mutate().setColorFilter(getResources()
-                .getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
-    }
-
-    @Override
-    public void wrongLengthEditText() {
-        etName.getBackground().mutate().setColorFilter(getResources()
-                .getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
     }
 
     @Override
@@ -130,7 +122,7 @@ public class AddNameFragment extends MvpAppCompatFragment implements AddNameView
     @Override
     public void onPause() {
         super.onPause();
-        presenter.onPauseFragment();
+        presenter.onPauseView();
     }
 
     @Override

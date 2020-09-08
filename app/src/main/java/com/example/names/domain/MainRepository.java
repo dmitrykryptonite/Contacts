@@ -10,11 +10,13 @@ public interface MainRepository {
 
     Completable deleteAllNames();
 
-    Completable deleteItem(Name name);
+    Completable deleteName(Name name);
 
     void getListNames();
 
     void saveEditName(Name name);
 
     Single<Name> getEditName();
+
+    Completable editName(int id, String name);
 }

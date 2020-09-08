@@ -7,23 +7,15 @@ import moxy.viewstate.strategy.SkipStrategy;
 import moxy.viewstate.strategy.StateStrategyType;
 
 public interface EditorView extends MvpView {
-    @StateStrategyType(SkipStrategy.class)
-    void showSuccessMassage(String massage);
 
     @StateStrategyType(SkipStrategy.class)
-    void showErrorMassage(String massage);
+    void showWarningMassage(String massage);
 
     @StateStrategyType(SkipStrategy.class)
     void showFinishActivityMassage(String massage);
 
     @StateStrategyType(SkipStrategy.class)
     void rootViewIsFocused();
-
-    @StateStrategyType(SkipStrategy.class)
-    void correctLengthEditText();
-
-    @StateStrategyType(SkipStrategy.class)
-    void wrongLengthEditText();
 
     @StateStrategyType(SkipStrategy.class)
     void showKeyboard();

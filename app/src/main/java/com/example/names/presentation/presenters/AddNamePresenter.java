@@ -15,21 +15,8 @@ public class AddNamePresenter extends MvpPresenter<AddNameView> {
     private AddNameInteractorImpl addNameInteractorImpl = new AddNameInteractorImpl();
     private Disposable disposableSaveName;
 
-    public void valueEditTextIsEmpty() {
-        getViewState().showErrorMassage("The line must not be empty");
-    }
-
-    public void lengthEditTextIsWrong() {
-        getViewState().showErrorMassage("Sorry, length name must be 1-40 symbols");
-    }
-
-    public void correctLengthEditText() {
-        getViewState().correctLengthEditText();
-    }
-
     public void wrongLengthEditText() {
-        getViewState().wrongLengthEditText();
-        getViewState().showErrorMassage("Sorry, length name must be 1-40 symbols");
+        getViewState().showWarningMassage("Sorry, length name must be 1-40 symbols");
     }
 
     public void onRootViewClicked() {
@@ -38,15 +25,21 @@ public class AddNamePresenter extends MvpPresenter<AddNameView> {
     }
 
     public void onBtnSubmitClicked(String name) {
-        Completable saveName = addNameInteractorImpl.saveName(name);
-        disposableSaveName = saveName.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> {
-                    getViewState().rootViewIsFocused();
-                    getViewState().setTextEditText("");
-                    getViewState().hideKeyboard();
-                    getViewState().showSuccessMassage("Name saved");
-                }, throwable -> getViewState().showErrorMassage(throwable.getMessage()));
+        if (name.isEmpty())
+            getViewState().showWarningMassage("The line must not be empty");
+        else if (name.length() >= 41)
+            getViewState().showWarningMassage("Sorry, length name must be 1-40 symbols");
+        else {
+            Completable saveName = addNameInteractorImpl.saveName(name);
+            disposableSaveName = saveName.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(() -> {
+                        getViewState().rootViewIsFocused();
+                        getViewState().setTextEditText("");
+                        getViewState().hideKeyboard();
+                        getViewState().showSuccessMassage("Name saved");
+                    }, throwable -> getViewState().showErrorMassage(throwable.getMessage()));
+        }
     }
 
     public void onEditTextFocusChanged(boolean hasFocus) {
@@ -58,7 +51,7 @@ public class AddNamePresenter extends MvpPresenter<AddNameView> {
         }
     }
 
-    public void onPauseFragment() {
+    public void onPauseView() {
         getViewState().rootViewIsFocused();
         getViewState().hideKeyboard();
     }

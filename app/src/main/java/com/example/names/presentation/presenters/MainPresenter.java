@@ -23,12 +23,12 @@ public class MainPresenter extends MvpPresenter<MainView> {
                         throwable -> getViewState().showErrorMassage(throwable.getMessage()));
     }
 
+    public void onPauseActivity() {
+        getViewState().hideKeyboard();
+    }
+
     public void releasePresenter() {
         if (disposableDeleteAllNames != null && disposableDeleteAllNames.isDisposed())
             disposableDeleteAllNames.dispose();
-    }
-
-    public void onPauseActivity() {
-        getViewState().hideKeyboard();
     }
 }

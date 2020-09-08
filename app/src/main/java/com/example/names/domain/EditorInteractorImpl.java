@@ -3,6 +3,7 @@ package com.example.names.domain;
 import com.example.names.data.repositories.MainRepositoryImpl;
 import com.example.names.domain.entities.Name;
 
+import io.reactivex.Completable;
 import io.reactivex.Single;
 
 public class EditorInteractorImpl implements EditorInteractor {
@@ -11,5 +12,10 @@ public class EditorInteractorImpl implements EditorInteractor {
     @Override
     public Single<Name> getEditName() {
         return mainRepositoryImpl.getEditName();
+    }
+
+    @Override
+    public Completable editName(int id, String name) {
+        return mainRepositoryImpl.editName(id, name);
     }
 }

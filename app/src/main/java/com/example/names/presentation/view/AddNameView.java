@@ -12,13 +12,10 @@ public interface AddNameView extends MvpView {
     void showErrorMassage(String massage);
 
     @StateStrategyType(SkipStrategy.class)
+    void showWarningMassage(String massage);
+
+    @StateStrategyType(SkipStrategy.class)
     void rootViewIsFocused();
-
-    @StateStrategyType(SkipStrategy.class)
-    void correctLengthEditText();
-
-    @StateStrategyType(SkipStrategy.class)
-    void wrongLengthEditText();
 
     @StateStrategyType(SkipStrategy.class)
     void setTextEditText(String text);

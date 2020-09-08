@@ -13,8 +13,8 @@ public class ListNamesInteractorImpl implements ListNamesInteractor {
     public Observable<List<Name>> namesUpdateListener = mainRepositoryImpl.namesUpdateListener;
 
     @Override
-    public Completable deleteItem(Name name) {
-        return mainRepositoryImpl.deleteItem(name);
+    public Completable deleteName(Name name) {
+        return mainRepositoryImpl.deleteName(name);
     }
 
     @Override

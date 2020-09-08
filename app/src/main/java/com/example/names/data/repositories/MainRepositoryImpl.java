@@ -36,8 +36,8 @@ public class MainRepositoryImpl implements MainRepository {
     }
 
     @Override
-    public Completable deleteItem(Name name) {
-        return databaseNamesManager.deleteItem(name);
+    public Completable deleteName(Name name) {
+        return databaseNamesManager.deleteName(name);
     }
 
     @Override
@@ -53,5 +53,10 @@ public class MainRepositoryImpl implements MainRepository {
     @Override
     public Single<Name> getEditName() {
         return sharedPreferencesManager.getEditName();
+    }
+
+    @Override
+    public Completable editName(int id, String name) {
+        return databaseNamesManager.editName(id, name);
     }
 }

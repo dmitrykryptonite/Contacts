@@ -12,7 +12,7 @@ public class DatabaseNames extends SQLiteOpenHelper {
 
     static final String TABLE_NAMES = "names";
     static final String NAME_ID = "_id";
-    private static final String NAME = "name";
+    static final String NAME = "name";
     private static final String TIME_ADDED = "time_added";
     private static final String NAME_ADDED = "nameAdded";
 

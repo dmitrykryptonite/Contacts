@@ -14,9 +14,9 @@ import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 
+import static com.example.names.data.databases.DatabaseNames.NAME;
 import static com.example.names.data.databases.DatabaseNames.NAME_ID;
 import static com.example.names.data.databases.DatabaseNames.TABLE_NAMES;
-
 
 public class DatabaseNamesManager {
     private static DatabaseNamesManager instance;
@@ -49,13 +49,13 @@ public class DatabaseNamesManager {
         emitter.onNext(getAllNames());
     }
 
-    public Completable addName(final String name) {
+    public Completable addName(String name) {
         return Completable.create(emitter -> {
             ContentValues values = new ContentValues();
             SQLiteDatabase sqLiteDatabase = databaseNames.getWritableDatabase();
             connectionsCount++;
-            values.put("name", name);
-            sqLiteDatabase.insert("names", null, values);
+            values.put(NAME, name);
+            sqLiteDatabase.insert(TABLE_NAMES, null, values);
             closeDB();
             emitter.onComplete();
             DatabaseNamesManager.this.emitter.onNext(getAllNames());
@@ -68,8 +68,8 @@ public class DatabaseNamesManager {
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAMES +
                 " ORDER BY " + NAME_ID + " DESC", null);
         if (cursor.moveToFirst()) {
-            int idColIndex = cursor.getColumnIndex("_id");
-            int nameColIndex = cursor.getColumnIndex("name");
+            int idColIndex = cursor.getColumnIndex(NAME_ID);
+            int nameColIndex = cursor.getColumnIndex(NAME);
             do {
                 int id = cursor.getInt(idColIndex);
                 String strName = cursor.getString(nameColIndex);
@@ -86,19 +86,31 @@ public class DatabaseNamesManager {
         return Completable.create(emitter -> {
             SQLiteDatabase sqLiteDatabase = databaseNames.getWritableDatabase();
             connectionsCount++;
-            sqLiteDatabase.delete("names", null, null);
+            sqLiteDatabase.delete(TABLE_NAMES, null, null);
             closeDB();
             emitter.onComplete();
             DatabaseNamesManager.this.emitter.onNext(getAllNames());
         });
     }
 
-    public Completable deleteItem(final Name name) {
+    public Completable deleteName(Name name) {
         return Completable.create(emitter -> {
             SQLiteDatabase sqLiteDatabase = databaseNames.getWritableDatabase();
             connectionsCount++;
-            sqLiteDatabase.execSQL("DELETE FROM " + TABLE_NAMES + " WHERE _id = " +
+            sqLiteDatabase.execSQL("DELETE FROM " + TABLE_NAMES + " WHERE " + NAME_ID + " = " +
                     name.getId());
+            closeDB();
+            emitter.onComplete();
+            DatabaseNamesManager.this.emitter.onNext(getAllNames());
+        });
+    }
+
+    public Completable editName(int id, String name) {
+        return Completable.create(emitter -> {
+            SQLiteDatabase sqLiteDatabase = databaseNames.getWritableDatabase();
+            connectionsCount++;
+            sqLiteDatabase.execSQL("UPDATE " + TABLE_NAMES + " SET " + NAME + " = '" + name +
+                    "' WHERE " + NAME_ID + " = " + id);
             closeDB();
             emitter.onComplete();
             DatabaseNamesManager.this.emitter.onNext(getAllNames());

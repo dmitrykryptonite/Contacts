@@ -32,19 +32,16 @@ public class ListNamesPresenter extends MvpPresenter<ListNamesView> {
         listNamesInteractorImpl.getListNames();
     }
 
+    public void onResumeView() {
+        listNamesInteractorImpl.getListNames();
+    }
+
     public void onBtnDeleteClicked(Name name) {
-        Completable deleteItem = listNamesInteractorImpl.deleteItem(name);
+        Completable deleteItem = listNamesInteractorImpl.deleteName(name);
         disposableDeleteItem = deleteItem.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> getViewState().showSuccessMassage("Name deleted"),
                         throwable -> getViewState().showErrorMassage(throwable.getMessage()));
-    }
-
-    public void releasePresenter() {
-        if (disposableUpdateListNames != null && disposableUpdateListNames.isDisposed())
-            disposableUpdateListNames.dispose();
-        if (disposableDeleteItem != null && disposableDeleteItem.isDisposed())
-            disposableDeleteItem.dispose();
     }
 
     public void setRouter(Router router) {
@@ -54,5 +51,12 @@ public class ListNamesPresenter extends MvpPresenter<ListNamesView> {
     public void onBtnEditClicked(Name name) {
         listNamesInteractorImpl.saveEditName(name);
         router.openEditItemScreen();
+    }
+
+    public void releasePresenter() {
+        if (disposableUpdateListNames != null && disposableUpdateListNames.isDisposed())
+            disposableUpdateListNames.dispose();
+        if (disposableDeleteItem != null && disposableDeleteItem.isDisposed())
+            disposableDeleteItem.dispose();
     }
 }

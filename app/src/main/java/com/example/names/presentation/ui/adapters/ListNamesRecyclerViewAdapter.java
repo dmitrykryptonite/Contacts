@@ -45,7 +45,7 @@ public class ListNamesRecyclerViewAdapter extends RecyclerView.Adapter<ListNames
         holder.tvItemName.setTextIsSelectable(false);
         holder.tvItemName.measure(-1, -1);
         holder.tvItemName.setTextIsSelectable(true);
-        holder.imgDeleteName.setOnClickListener(v -> fragment.deleteItem(name));
+        holder.imgDeleteName.setOnClickListener(v -> fragment.deleteName(name));
         holder.imgEditName.setOnClickListener(v -> fragment.openEditItemScreen(name));
     }
 

@@ -49,7 +49,7 @@ public class ListNamesFragment extends MvpAppCompatFragment implements ListNames
     }
 
     @Override
-    public void deleteItem(Name name) {
+    public void deleteName(Name name) {
         presenter.onBtnDeleteClicked(name);
     }
 
@@ -66,6 +66,12 @@ public class ListNamesFragment extends MvpAppCompatFragment implements ListNames
     @Override
     public void openEditItemScreen(Name name) {
         presenter.onBtnEditClicked(name);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.onResumeView();
     }
 
     @Override

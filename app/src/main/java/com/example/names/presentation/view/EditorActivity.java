@@ -34,6 +34,7 @@ public class EditorActivity extends MvpAppCompatActivity implements EditorView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
         etName = findViewById(R.id.etName);
+        presenter.onCreateActivity();
         etName.setOnFocusChangeListener((v, hasFocus) -> presenter.onEditTextFocusChanged(hasFocus));
         etName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -46,22 +47,20 @@ public class EditorActivity extends MvpAppCompatActivity implements EditorView {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length() >= 41)
+                if (s.length() >= 41) {
+                    etName.getBackground().mutate().setColorFilter(getResources()
+                            .getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
                     presenter.wrongLengthEditText();
+                }
                 else
-                    presenter.correctLengthEditText();
+                    etName.getBackground().mutate().setColorFilter(getResources()
+                            .getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
             }
         });
         ImageView imgSubmit = findViewById(R.id.imgSubmit);
         imgSubmit.setOnClickListener(v -> {
             String name = etName.getText().toString();
-            if (name.isEmpty())
-                presenter.valueEditTextIsEmpty();
-            else if (name.length() >= 41)
-                presenter.lengthEditTextIsWrong();
-            else
-                Toast.makeText(EditorActivity.this, "ok", Toast.LENGTH_SHORT).show();
-            //presenter.onBtnSubmitClicked(etName.getText().toString());
+            presenter.onImgSubmitClicked(this.name.getId(), name);
         });
         ImageView imgCancel = findViewById(R.id.imgCancel);
         imgCancel.setOnClickListener(v -> presenter.onImgCancelClicked());
@@ -70,22 +69,16 @@ public class EditorActivity extends MvpAppCompatActivity implements EditorView {
             presenter.onRootViewClicked();
             return false;
         });
-        presenter.onViewCreate();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        presenter.onBackClicked();
+        presenter.onBackPressed();
     }
 
     @Override
-    public void showSuccessMassage(String massage) {
-        Toast.makeText(EditorActivity.this, massage, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showErrorMassage(String massage) {
+    public void showWarningMassage(String massage) {
         Toast.makeText(EditorActivity.this, massage, Toast.LENGTH_SHORT).show();
     }
 
@@ -97,18 +90,6 @@ public class EditorActivity extends MvpAppCompatActivity implements EditorView {
     @Override
     public void rootViewIsFocused() {
         rootView.requestFocus();
-    }
-
-    @Override
-    public void correctLengthEditText() {
-        etName.getBackground().mutate().setColorFilter(getResources()
-                .getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
-    }
-
-    @Override
-    public void wrongLengthEditText() {
-        etName.getBackground().mutate().setColorFilter(getResources()
-                .getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
     }
 
     @Override

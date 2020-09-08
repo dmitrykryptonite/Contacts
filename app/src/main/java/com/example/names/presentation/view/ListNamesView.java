@@ -13,7 +13,7 @@ public interface ListNamesView extends MvpView {
     void updateNamesList(List<Name> listNames);
 
     @StateStrategyType(SkipStrategy.class)
-    void deleteItem(Name name);
+    void deleteName(Name name);
 
     @StateStrategyType(SkipStrategy.class)
     void showSuccessMassage(String massage);
