@@ -9,4 +9,6 @@
     <string name="image_cancel_changing">Image: cancel changing</string>
     <string name="image_submit_changing">Image: submit changing</string>
     <string name="image_edit_name">Image: edit name</string>
+    <string name="positive_btn_ok">OK</string>
+    <string name="negative_btn_cancel" tools:ignore="ButtonCase">CANCEL</string>
 </resources>

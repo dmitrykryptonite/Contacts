@@ -65,8 +65,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         };
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.are_you_sure_delete_all_names)
-                .setPositiveButton(getString(android.R.string.yes), dialogClickListener)
-                .setNegativeButton(getString(android.R.string.no), dialogClickListener)
+                .setPositiveButton(getString(R.string.positive_btn_ok), dialogClickListener)
+                .setNegativeButton(getString(R.string.negative_btn_cancel), dialogClickListener)
                 .show();
     }
 
