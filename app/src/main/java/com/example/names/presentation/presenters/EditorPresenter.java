@@ -17,7 +17,7 @@ public class EditorPresenter extends MvpPresenter<EditorView> {
     private EditorInteractorImpl editorInteractorImpl = new EditorInteractorImpl();
     private Disposable disposableSetEditName, disposableEditName;
 
-    public void onCreateActivity() {
+    public void onCreateView() {
         setEditName();
     }
 
@@ -71,7 +71,7 @@ public class EditorPresenter extends MvpPresenter<EditorView> {
         getViewState().showFinishActivityMassage("Name has not changed");
     }
 
-    public void onPauseActivity() {
+    public void onPauseView() {
         getViewState().rootViewIsFocused();
         getViewState().hideKeyboard();
     }
@@ -83,7 +83,9 @@ public class EditorPresenter extends MvpPresenter<EditorView> {
                 .subscribe(name -> getViewState().setName(name));
     }
 
-    public void releasePresenter() {
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         if (disposableSetEditName != null && disposableSetEditName.isDisposed())
             disposableSetEditName.dispose();
         if (disposableEditName != null && disposableEditName.isDisposed())

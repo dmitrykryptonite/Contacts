@@ -28,11 +28,9 @@ public class ListNamesPresenter extends MvpPresenter<ListNamesView> {
                 .subscribe(names -> getViewState().updateNamesList(names));
     }
 
-    public void onCreateView() {
-        listNamesInteractorImpl.getListNames();
-    }
-
-    public void onResumeView() {
+    @Override
+    protected void onFirstViewAttach() {
+        super.onFirstViewAttach();
         listNamesInteractorImpl.getListNames();
     }
 
@@ -53,7 +51,9 @@ public class ListNamesPresenter extends MvpPresenter<ListNamesView> {
         router.openEditItemScreen();
     }
 
-    public void releasePresenter() {
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         if (disposableUpdateListNames != null && disposableUpdateListNames.isDisposed())
             disposableUpdateListNames.dispose();
         if (disposableDeleteItem != null && disposableDeleteItem.isDisposed())

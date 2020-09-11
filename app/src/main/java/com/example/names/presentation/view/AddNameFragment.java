@@ -124,11 +124,4 @@ public class AddNameFragment extends MvpAppCompatFragment implements AddNameView
         super.onPause();
         presenter.onPauseView();
     }
-
-    @Override
-    public void onDestroy() {
-        presenter.releasePresenter();
-        presenter = null;
-        super.onDestroy();
-    }
 }

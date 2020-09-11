@@ -56,9 +56,10 @@ public class AddNamePresenter extends MvpPresenter<AddNameView> {
         getViewState().hideKeyboard();
     }
 
-    public void releasePresenter() {
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         if (disposableSaveName != null && disposableSaveName.isDisposed())
             disposableSaveName.dispose();
     }
-
 }

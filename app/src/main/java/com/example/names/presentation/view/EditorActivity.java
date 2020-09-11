@@ -34,7 +34,7 @@ public class EditorActivity extends MvpAppCompatActivity implements EditorView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
         etName = findViewById(R.id.etName);
-        presenter.onCreateActivity();
+        presenter.onCreateView();
         etName.setOnFocusChangeListener((v, hasFocus) -> presenter.onEditTextFocusChanged(hasFocus));
         etName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -120,18 +120,11 @@ public class EditorActivity extends MvpAppCompatActivity implements EditorView {
     @Override
     protected void onPause() {
         super.onPause();
-        presenter.onPauseActivity();
+        presenter.onPauseView();
     }
 
     @Override
     public void finishActivity() {
         finish();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        presenter.releasePresenter();
-        presenter = null;
     }
 }

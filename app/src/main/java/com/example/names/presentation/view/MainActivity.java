@@ -89,17 +89,4 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         assert (imm != null);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        presenter.onPauseActivity();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.releasePresenter();
-        presenter = null;
-    }
 }
