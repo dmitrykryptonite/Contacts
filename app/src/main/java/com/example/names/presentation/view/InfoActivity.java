@@ -21,6 +21,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.names.R;
 import com.example.names.domain.entities.Contact;
+import com.example.names.navigation.Router;
 import com.example.names.presentation.presenters.InfoPresenter;
 
 import moxy.MvpAppCompatActivity;
@@ -42,9 +43,10 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
         setSupportActionBar(toolbar);
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle("Info");
+        Router router = new Router(this);
+        presenter.setRouter(router);
         etName = findViewById(R.id.etName);
         etCallNumber = findViewById(R.id.etCallNumber);
-        presenter.onCreateView();
         etName.setOnFocusChangeListener((v, hasFocus) -> presenter.onEditTextNameFocusChanged(hasFocus));
         etCallNumber.setOnFocusChangeListener((v, hasFocus) -> presenter.onEditTextCallNumberFocusChanged(hasFocus));
         etName.addTextChangedListener(new TextWatcher() {
@@ -171,7 +173,7 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_call ) {
-
+            presenter.onBtnCallCLicked();
         }
         else if (id == R.id.action_edit) {
 

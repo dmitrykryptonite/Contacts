@@ -2,6 +2,7 @@ package com.example.names.presentation.presenters;
 
 import com.example.names.domain.InfoInteractorImpl;
 import com.example.names.domain.entities.Contact;
+import com.example.names.navigation.Router;
 import com.example.names.presentation.view.InfoView;
 
 import io.reactivex.Completable;
@@ -16,9 +17,17 @@ import moxy.MvpPresenter;
 public class InfoPresenter extends MvpPresenter<InfoView> {
     private InfoInteractorImpl infoInteractorImpl = new InfoInteractorImpl();
     private Disposable disposableSetInfoContact, disposableInfoContact;
+    private Router router;
+    private Contact mContact;
 
-    public void onCreateView() {
-        setEditContact();
+    public InfoPresenter() {
+        Single<Contact> getInfoContact = infoInteractorImpl.getInfoContact();
+        disposableSetInfoContact = getInfoContact.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(contact -> {
+                   getViewState().setContact(contact);
+                   mContact = contact;
+                });
     }
 
     public void wrongLengthEditText() {
@@ -91,11 +100,12 @@ public class InfoPresenter extends MvpPresenter<InfoView> {
         getViewState().hideKeyboard();
     }
 
-    private void setEditContact() {
-        Single<Contact> getInfoContact = infoInteractorImpl.getInfoContact();
-        disposableSetInfoContact = getInfoContact.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(name -> getViewState().setContact(name));
+    public void setRouter(Router router) {
+        this.router = router;
+    }
+
+    public void onBtnCallCLicked() {
+        router.openCallScreen(mContact);
     }
 
     @Override
