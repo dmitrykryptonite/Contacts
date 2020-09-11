@@ -16,7 +16,7 @@ import moxy.MvpPresenter;
 @InjectViewState
 public class InfoPresenter extends MvpPresenter<InfoView> {
     private InfoInteractorImpl infoInteractorImpl = new InfoInteractorImpl();
-    private Disposable disposableSetInfoContact, disposableInfoContact;
+    private Disposable disposableSetInfoContact, disposableInfoContact, disposableDeleteContact;
     private Router router;
     private Contact mContact;
 
@@ -108,6 +108,19 @@ public class InfoPresenter extends MvpPresenter<InfoView> {
         router.openCallScreen(mContact);
     }
 
+    public void onBtnDeleteClicked() {
+        Completable deleteContact = infoInteractorImpl.deleteContact(mContact);
+        disposableDeleteContact = deleteContact.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                    getViewState().rootViewIsFocused();
+                    getViewState().hideKeyboard();
+                    getViewState().finishActivity();
+                    getViewState().showFinishActivityMassage("Contact deleted");
+                });
+
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -115,5 +128,7 @@ public class InfoPresenter extends MvpPresenter<InfoView> {
             disposableSetInfoContact.dispose();
         if (disposableInfoContact != null && disposableInfoContact.isDisposed())
             disposableInfoContact.dispose();
+        if (disposableDeleteContact != null && disposableDeleteContact.isDisposed())
+            disposableDeleteContact.dispose();
     }
 }

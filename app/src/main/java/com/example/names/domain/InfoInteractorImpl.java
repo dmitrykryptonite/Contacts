@@ -18,4 +18,9 @@ public class InfoInteractorImpl implements InfoInteractor {
     public Completable editContact(int id, String name, String callNumber) {
         return mainRepositoryImpl.editContact(id, name, callNumber);
     }
+
+    @Override
+    public Completable deleteContact(Contact contact) {
+        return mainRepositoryImpl.deleteContact(contact);
+    }
 }

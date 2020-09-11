@@ -179,7 +179,7 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
 
         }
         else if(id == R.id.action_delete) {
-
+            presenter.onBtnDeleteClicked();
         }
         return super.onOptionsItemSelected(item);
     }

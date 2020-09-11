@@ -9,4 +9,6 @@ public interface InfoInteractor {
     Single<Contact> getInfoContact();
 
     Completable editContact(int id, String name, String callNumber);
+
+    Completable deleteContact(Contact contact);
 }
