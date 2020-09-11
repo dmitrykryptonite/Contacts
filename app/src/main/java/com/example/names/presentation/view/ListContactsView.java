@@ -1,6 +1,6 @@
 package com.example.names.presentation.view;
 
-import com.example.names.domain.entities.Name;
+import com.example.names.domain.entities.Contact;
 
 import java.util.List;
 
@@ -8,12 +8,12 @@ import moxy.MvpView;
 import moxy.viewstate.strategy.SkipStrategy;
 import moxy.viewstate.strategy.StateStrategyType;
 
-public interface ListNamesView extends MvpView {
+public interface ListContactsView extends MvpView {
     @StateStrategyType(SkipStrategy.class)
-    void updateNamesList(List<Name> listNames);
+    void updateContactsList(List<Contact> listContacts);
 
     @StateStrategyType(SkipStrategy.class)
-    void deleteName(Name name);
+    void deleteContact(Contact contact);
 
     @StateStrategyType(SkipStrategy.class)
     void showSuccessMassage(String massage);
@@ -22,5 +22,8 @@ public interface ListNamesView extends MvpView {
     void showErrorMassage(String massage);
 
     @StateStrategyType(SkipStrategy.class)
-    void openEditItemScreen(Name name);
+    void openInfoScreen(Contact contact);
+
+    @StateStrategyType(SkipStrategy.class)
+    void openCallScreen(Contact contact);
 }

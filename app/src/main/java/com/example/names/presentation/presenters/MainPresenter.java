@@ -13,20 +13,20 @@ import moxy.MvpPresenter;
 @InjectViewState
 public class MainPresenter extends MvpPresenter<MainView> {
     private MainInteractorImpl mainInteractorImpl = new MainInteractorImpl();
-    private Disposable disposableDeleteAllNames;
+    private Disposable disposableDeleteAllContacts;
 
     public void onBtnDeleteClicked() {
-        Completable deleteAllNames = mainInteractorImpl.deleteAllNames();
-        disposableDeleteAllNames = deleteAllNames.subscribeOn(Schedulers.io())
+        Completable deleteAllContacts = mainInteractorImpl.deleteAllContacts();
+        disposableDeleteAllContacts = deleteAllContacts.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> getViewState().showSuccessMassage("All names deleted"),
+                .subscribe(() -> getViewState().showSuccessMassage("All contacts deleted"),
                         throwable -> getViewState().showErrorMassage(throwable.getMessage()));
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (disposableDeleteAllNames != null && disposableDeleteAllNames.isDisposed())
-            disposableDeleteAllNames.dispose();
+        if (disposableDeleteAllContacts != null && disposableDeleteAllContacts.isDisposed())
+            disposableDeleteAllContacts.dispose();
     }
 }

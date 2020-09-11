@@ -11,7 +11,7 @@
         android:roundIcon="@drawable/icon_list"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.view.EditorActivity" />
+        <activity android:name=".presentation.view.InfoActivity" />
         <activity android:name=".presentation.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -6,24 +6,26 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-public class DatabaseNames extends SQLiteOpenHelper {
+public class DatabaseContacts extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "names.db";
     private static final int DATABASE_VERSION = 1;
 
-    static final String TABLE_NAMES = "names";
-    static final String NAME_ID = "_id";
+    static final String TABLE_CONTACTS = "names";
+    static final String CONTACT_ID = "_id";
     static final String NAME = "name";
+    static final String CALL_NUMBER = "call_number";
     private static final String TIME_ADDED = "time_added";
-    private static final String NAME_ADDED = "nameAdded";
+    private static final String CONTACT_ADDED = "nameAdded";
 
     private static final String TABLE_CREATE =
-            "CREATE TABLE " + TABLE_NAMES + " (" +
-                    NAME_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "CREATE TABLE " + TABLE_CONTACTS + " (" +
+                    CONTACT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     NAME + " TEXT, " +
+                    CALL_NUMBER + " TEXT, " +
                     TIME_ADDED + " INTEGER, " +
-                    NAME_ADDED + " TEXT default CURRENT_TIMESTAMP" + ")";
+                    CONTACT_ADDED + " TEXT default CURRENT_TIMESTAMP" + ")";
 
-    DatabaseNames(@Nullable Context context) {
+    DatabaseContacts(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

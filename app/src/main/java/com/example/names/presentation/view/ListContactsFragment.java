@@ -12,30 +12,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.names.R;
-import com.example.names.domain.entities.Name;
+import com.example.names.domain.entities.Contact;
 import com.example.names.navigation.Router;
-import com.example.names.presentation.presenters.ListNamesPresenter;
-import com.example.names.presentation.ui.adapters.ListNamesRecyclerViewAdapter;
+import com.example.names.presentation.presenters.ListContactsPresenter;
+import com.example.names.presentation.ui.adapters.ListContactsRecyclerViewAdapter;
 
 import java.util.List;
 
 import moxy.MvpAppCompatFragment;
 import moxy.presenter.InjectPresenter;
 
-public class ListNamesFragment extends MvpAppCompatFragment implements ListNamesView {
+public class ListContactsFragment extends MvpAppCompatFragment implements ListContactsView {
     @InjectPresenter
-    ListNamesPresenter presenter;
-    private ListNamesRecyclerViewAdapter adapter;
+    ListContactsPresenter presenter;
+    private ListContactsRecyclerViewAdapter adapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list_names, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_conatcs, container, false);
         RecyclerView rvListNames = view.findViewById(R.id.rvListNames);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rvListNames.setLayoutManager(llm);
-        adapter = new ListNamesRecyclerViewAdapter(this);
+        adapter = new ListContactsRecyclerViewAdapter(this);
         rvListNames.setAdapter(adapter);
         Router router = new Router(getActivity());
         presenter.setRouter(router);
@@ -43,13 +43,13 @@ public class ListNamesFragment extends MvpAppCompatFragment implements ListNames
     }
 
     @Override
-    public void updateNamesList(List<Name> listNames) {
-        adapter.updateNamesList(listNames);
+    public void updateContactsList(List<Contact> listContacts) {
+        adapter.updateContactsList(listContacts);
     }
 
     @Override
-    public void deleteName(Name name) {
-        presenter.onBtnDeleteClicked(name);
+    public void deleteContact(Contact contact) {
+        presenter.onBtnDeleteClicked(contact);
     }
 
     @Override
@@ -63,7 +63,12 @@ public class ListNamesFragment extends MvpAppCompatFragment implements ListNames
     }
 
     @Override
-    public void openEditItemScreen(Name name) {
-        presenter.onBtnEditClicked(name);
+    public void openInfoScreen(Contact contact) {
+        presenter.onBtnInfoClicked(contact);
+    }
+
+    @Override
+    public void openCallScreen(Contact contact) {
+        presenter.onBtnCallClicked(contact);
     }
 }

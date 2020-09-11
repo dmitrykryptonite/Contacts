@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".presentation.view.EditorActivity">
+    tools:context=".presentation.view.InfoActivity">
 
     <EditText
         android:id="@+id/etName"

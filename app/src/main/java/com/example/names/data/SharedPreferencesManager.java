@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.example.names.app.App;
-import com.example.names.domain.entities.Name;
+import com.example.names.domain.entities.Contact;
 
 import io.reactivex.Single;
 
@@ -18,24 +18,27 @@ public class SharedPreferencesManager {
     }
 
     private SharedPreferences preferences;
-    private final String SAVED_NAME = "saved_text";
     private final String SAVED_ID = "saved_id";
+    private final String SAVED_NAME = "saved_text";
+    private final String SAVED_CALL_NUMBER = "saved_call_number";
 
-    public void saveEditName(Name name) {
+    public void saveInfoContact(Contact contact) {
         preferences = PreferenceManager.getDefaultSharedPreferences(App.getApp());
-        SharedPreferences.Editor ed = preferences.edit();
-        ed.putString(SAVED_NAME, name.getName());
-        ed.putInt(SAVED_ID, name.getId());
-        ed.apply();
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(SAVED_ID, contact.getId());
+        editor.putString(SAVED_NAME, contact.getName());
+        editor.putString(SAVED_CALL_NUMBER, contact.getCallNumber());
+        editor.apply();
     }
 
-    public Single<Name> getEditName() {
+    public Single<Contact> getInfoContact() {
         return Single.create(emitter -> {
             preferences = PreferenceManager.getDefaultSharedPreferences(App.getApp());
+            int savedId = preferences.getInt(SAVED_ID, 0);
             String savedName = preferences.getString(SAVED_NAME, "");
-            int idName = preferences.getInt(SAVED_ID, 0);
-            Name name = new Name(idName, savedName);
-            emitter.onSuccess(name);
+            String callNumber = preferences.getString(SAVED_CALL_NUMBER, "");
+            Contact contact = new Contact(savedId, savedName, callNumber);
+            emitter.onSuccess(contact);
         });
     }
 }

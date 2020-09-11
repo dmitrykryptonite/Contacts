@@ -1,8 +1,8 @@
 package com.example.names.presentation.presenters;
 
-import com.example.names.domain.EditorInteractorImpl;
-import com.example.names.domain.entities.Name;
-import com.example.names.presentation.view.EditorView;
+import com.example.names.domain.InfoInteractorImpl;
+import com.example.names.domain.entities.Contact;
+import com.example.names.presentation.view.InfoView;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
@@ -13,9 +13,9 @@ import moxy.InjectViewState;
 import moxy.MvpPresenter;
 
 @InjectViewState
-public class EditorPresenter extends MvpPresenter<EditorView> {
-    private EditorInteractorImpl editorInteractorImpl = new EditorInteractorImpl();
-    private Disposable disposableSetEditName, disposableEditName;
+public class InfoPresenter extends MvpPresenter<InfoView> {
+    private InfoInteractorImpl infoInteractorImpl = new InfoInteractorImpl();
+    private Disposable disposableSetInfoContact, disposableInfoContact;
 
     public void onCreateView() {
         setEditName();
@@ -43,7 +43,7 @@ public class EditorPresenter extends MvpPresenter<EditorView> {
         getViewState().rootViewIsFocused();
         getViewState().hideKeyboard();
         getViewState().finishActivity();
-        getViewState().showFinishActivityMassage("Name has not changed");
+        getViewState().showFinishActivityMassage("Contact has not changed");
     }
 
     public void onImgSubmitClicked(int id, String name) {
@@ -53,14 +53,14 @@ public class EditorPresenter extends MvpPresenter<EditorView> {
         else if (name.length() >= 41)
             getViewState().showWarningMassage("Sorry, length name must be 1-40 symbols");
         else {
-            Completable editName = editorInteractorImpl.editName(id, name);
-            disposableEditName = editName.subscribeOn(Schedulers.io())
+            Completable editContact = infoInteractorImpl.editName(id, name);
+            disposableInfoContact = editContact.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(() -> {
                         getViewState().rootViewIsFocused();
                         getViewState().hideKeyboard();
                         getViewState().finishActivity();
-                        getViewState().showFinishActivityMassage("Name changed");
+                        getViewState().showFinishActivityMassage("Contact changed");
                     });
         }
     }
@@ -68,7 +68,7 @@ public class EditorPresenter extends MvpPresenter<EditorView> {
     public void onBackPressed() {
         getViewState().rootViewIsFocused();
         getViewState().hideKeyboard();
-        getViewState().showFinishActivityMassage("Name has not changed");
+        getViewState().showFinishActivityMassage("Contact has not changed");
     }
 
     public void onPauseView() {
@@ -77,18 +77,18 @@ public class EditorPresenter extends MvpPresenter<EditorView> {
     }
 
     private void setEditName() {
-        Single<Name> getEditName = editorInteractorImpl.getEditName();
-        disposableSetEditName = getEditName.subscribeOn(Schedulers.io())
+        Single<Contact> getInfoContact = infoInteractorImpl.getInfoContact();
+        disposableSetInfoContact = getInfoContact.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(name -> getViewState().setName(name));
+                .subscribe(name -> getViewState().setContact(name));
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (disposableSetEditName != null && disposableSetEditName.isDisposed())
-            disposableSetEditName.dispose();
-        if (disposableEditName != null && disposableEditName.isDisposed())
-            disposableEditName.dispose();
+        if (disposableSetInfoContact != null && disposableSetInfoContact.isDisposed())
+            disposableSetInfoContact.dispose();
+        if (disposableInfoContact != null && disposableInfoContact.isDisposed())
+            disposableInfoContact.dispose();
     }
 }

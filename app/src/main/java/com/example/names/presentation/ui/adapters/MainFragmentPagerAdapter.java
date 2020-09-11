@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.names.presentation.view.AddNameFragment;
-import com.example.names.presentation.view.ListNamesFragment;
+import com.example.names.presentation.view.AddContactFragment;
+import com.example.names.presentation.view.ListContactsFragment;
 
 public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
-    private String[] titles = {"Add Name", "List Names"};
+    private String[] titles = {"Add Contact", "List Contacts"};
 
     public MainFragmentPagerAdapter(@NonNull FragmentManager fm) {
         super(fm);
@@ -20,9 +20,9 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 1) {
-            return new ListNamesFragment();
+            return new ListContactsFragment();
         }
-        return new AddNameFragment();
+        return new AddContactFragment();
     }
 
     @Override

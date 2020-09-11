@@ -20,15 +20,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.names.R;
-import com.example.names.presentation.presenters.AddNamePresenter;
+import com.example.names.presentation.presenters.AddContactPresenter;
 
 import moxy.MvpAppCompatFragment;
 import moxy.presenter.InjectPresenter;
 
-public class AddNameFragment extends MvpAppCompatFragment implements AddNameView {
-    private EditText etName;
+public class AddContactFragment extends MvpAppCompatFragment implements AddContactView {
+    private EditText etName, etCallNumber;
     @InjectPresenter
-    AddNamePresenter presenter;
+    AddContactPresenter presenter;
     private RelativeLayout rootView;
 
     @SuppressLint("ClickableViewAccessibility")
@@ -36,9 +36,11 @@ public class AddNameFragment extends MvpAppCompatFragment implements AddNameView
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragmet_add_name, container, false);
+        View view = inflater.inflate(R.layout.fragmet_add_contact, container, false);
         etName = view.findViewById(R.id.etName);
-        etName.setOnFocusChangeListener((v, hasFocus) -> presenter.onEditTextFocusChanged(hasFocus));
+        etCallNumber = view.findViewById(R.id.etCallNumber);
+        etName.setOnFocusChangeListener((v, hasFocus) -> presenter.onEditTextNameFocusChanged(hasFocus));
+        etCallNumber.setOnFocusChangeListener((v, hasFocus) -> presenter.onEditTextCallNumberFocusChanged(hasFocus));
         etName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -53,17 +55,39 @@ public class AddNameFragment extends MvpAppCompatFragment implements AddNameView
                 if (s.length() >= 41) {
                     etName.getBackground().mutate().setColorFilter(getResources()
                             .getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
-                    presenter.wrongLengthEditText();
+                    presenter.wrongLengthEditTextName();
                 }
                 else
                     etName.getBackground().mutate().setColorFilter(getResources()
                             .getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
             }
         });
+        etCallNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() >= 14) {
+                    etCallNumber.getBackground().mutate().setColorFilter(getResources()
+                            .getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
+                    presenter.wrongLengthEditTextCallNumber();
+                }
+                else
+                    etCallNumber.getBackground().mutate().setColorFilter(getResources()
+                            .getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+            }
+        });
         Button btnSubmit = view.findViewById(R.id.btnSubmit);
         btnSubmit.setOnClickListener(v -> {
             String name = etName.getText().toString();
-            presenter.onBtnSubmitClicked(name);
+            String callNumber = etCallNumber.getText().toString();
+            presenter.onBtnSubmitClicked(name, callNumber);
         });
         rootView = view.findViewById(R.id.rootView);
         rootView.setOnTouchListener((v, event) -> {
@@ -94,18 +118,33 @@ public class AddNameFragment extends MvpAppCompatFragment implements AddNameView
     }
 
     @Override
-    public void setTextEditText(String text) {
+    public void setTextEditTextName(String text) {
         etName.setText(text);
     }
 
     @Override
-    public void showKeyboard() {
+    public void setTextEditTextCallNumber(String text) {
+        etCallNumber.setText(text);
+    }
+
+    @Override
+    public void showKeyboardForEtName() {
         final Activity activity = getActivity();
         assert activity != null;
         final InputMethodManager imm = (InputMethodManager) activity
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         assert (imm != null);
         imm.showSoftInput(etName, InputMethodManager.SHOW_FORCED);
+    }
+
+    @Override
+    public void showKeyboardForEtCallNumber() {
+        final Activity activity = getActivity();
+        assert activity != null;
+        final InputMethodManager imm = (InputMethodManager) activity
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        assert (imm != null);
+        imm.showSoftInput(etCallNumber, InputMethodManager.SHOW_FORCED);
     }
 
     @Override

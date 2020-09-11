@@ -15,24 +15,24 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.names.R;
-import com.example.names.domain.entities.Name;
-import com.example.names.presentation.presenters.EditorPresenter;
+import com.example.names.domain.entities.Contact;
+import com.example.names.presentation.presenters.InfoPresenter;
 
 import moxy.MvpAppCompatActivity;
 import moxy.presenter.InjectPresenter;
 
-public class EditorActivity extends MvpAppCompatActivity implements EditorView {
+public class InfoActivity extends MvpAppCompatActivity implements InfoView {
     @InjectPresenter
-    EditorPresenter presenter;
+    InfoPresenter presenter;
     private EditText etName;
     private RelativeLayout rootView;
-    private Name name;
+    private Contact contact;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editor);
+        setContentView(R.layout.activity_info);
         etName = findViewById(R.id.etName);
         presenter.onCreateView();
         etName.setOnFocusChangeListener((v, hasFocus) -> presenter.onEditTextFocusChanged(hasFocus));
@@ -60,7 +60,7 @@ public class EditorActivity extends MvpAppCompatActivity implements EditorView {
         ImageView imgSubmit = findViewById(R.id.imgSubmit);
         imgSubmit.setOnClickListener(v -> {
             String name = etName.getText().toString();
-            presenter.onImgSubmitClicked(this.name.getId(), name);
+            presenter.onImgSubmitClicked(this.contact.getId(), name);
         });
         ImageView imgCancel = findViewById(R.id.imgCancel);
         imgCancel.setOnClickListener(v -> presenter.onImgCancelClicked());
@@ -79,7 +79,7 @@ public class EditorActivity extends MvpAppCompatActivity implements EditorView {
 
     @Override
     public void showWarningMassage(String massage) {
-        Toast.makeText(EditorActivity.this, massage, Toast.LENGTH_SHORT).show();
+        Toast.makeText(InfoActivity.this, massage, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -94,7 +94,7 @@ public class EditorActivity extends MvpAppCompatActivity implements EditorView {
 
     @Override
     public void showKeyboard() {
-        final Activity activity = EditorActivity.this;
+        final Activity activity = InfoActivity.this;
         final InputMethodManager imm = (InputMethodManager) activity
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         assert (imm != null);
@@ -103,7 +103,7 @@ public class EditorActivity extends MvpAppCompatActivity implements EditorView {
 
     @Override
     public void hideKeyboard() {
-        final Activity activity = EditorActivity.this;
+        final Activity activity = InfoActivity.this;
         final View view = activity.getWindow().getDecorView();
         final InputMethodManager imm = (InputMethodManager) activity
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -112,9 +112,9 @@ public class EditorActivity extends MvpAppCompatActivity implements EditorView {
     }
 
     @Override
-    public void setName(Name name) {
-        this.name = name;
-        etName.setText(name.getName());
+    public void setContact(Contact contact) {
+        this.contact = contact;
+        etName.setText(contact.getName());
     }
 
     @Override

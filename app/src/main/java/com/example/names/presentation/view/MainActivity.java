@@ -34,7 +34,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         assert getSupportActionBar() != null;
-        getSupportActionBar().setTitle("Names");
+        getSupportActionBar().setTitle("Contacts");
         TabLayout tabs = findViewById(R.id.tabs);
         ViewPager viewPager = findViewById(R.id.viewPager);
         MainFragmentPagerAdapter adapter = new MainFragmentPagerAdapter(getSupportFragmentManager());
@@ -53,18 +53,18 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_delete_all)
-            deleteAllNames();
+            deleteAllContacts();
         return super.onOptionsItemSelected(item);
     }
 
-    private void deleteAllNames() {
+    private void deleteAllContacts() {
         DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
             if (which == DialogInterface.BUTTON_POSITIVE) {
                 presenter.onBtnDeleteClicked();
             }
         };
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.are_you_sure_delete_all_names)
+        builder.setMessage(R.string.are_you_sure_delete_all_contacts)
                 .setPositiveButton(getString(R.string.positive_btn_ok), dialogClickListener)
                 .setNegativeButton(getString(R.string.negative_btn_cancel), dialogClickListener)
                 .show();

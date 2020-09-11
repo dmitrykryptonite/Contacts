@@ -1,12 +1,14 @@
 package com.example.names.domain.entities;
 
-public class Name {
+public class Contact {
     private int id;
     private String name;
+    private String callNumber;
 
-    public Name(int id, String name) {
+    public Contact(int id, String name, String callNumber) {
         this.id = id;
         this.name = name;
+        this.callNumber = callNumber;
     }
 
     public int getId() {
@@ -23,5 +25,13 @@ public class Name {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCallNumber() {
+        return callNumber;
+    }
+
+    public void setCallNumber(String callNumber) {
+        this.callNumber = callNumber;
     }
 }

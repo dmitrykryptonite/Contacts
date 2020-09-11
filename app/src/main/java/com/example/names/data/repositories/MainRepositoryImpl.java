@@ -1,9 +1,9 @@
 package com.example.names.data.repositories;
 
 import com.example.names.data.SharedPreferencesManager;
-import com.example.names.data.databases.DatabaseNamesManager;
+import com.example.names.data.databases.DatabaseContactsManager;
 import com.example.names.domain.MainRepository;
-import com.example.names.domain.entities.Name;
+import com.example.names.domain.entities.Contact;
 
 import java.util.List;
 
@@ -21,42 +21,47 @@ public class MainRepositoryImpl implements MainRepository {
         return instance;
     }
 
-    private DatabaseNamesManager databaseNamesManager = DatabaseNamesManager.getInstance();
-    public Observable<List<Name>> namesUpdateListener = databaseNamesManager.namesUpdateListener;
+    private DatabaseContactsManager databaseContactsManager = DatabaseContactsManager.getInstance();
+    public Observable<List<Contact>> namesUpdateListener = databaseContactsManager.contactsUpdateListener;
     private SharedPreferencesManager sharedPreferencesManager = SharedPreferencesManager.getInstance();
 
     @Override
-    public Completable saveName(String name) {
-        return databaseNamesManager.addName(name);
+    public Completable saveContact(String name, String callNumber) {
+        return databaseContactsManager.addContact(name, callNumber);
     }
 
     @Override
-    public Completable deleteAllNames() {
-        return databaseNamesManager.deleteAllNames();
+    public Completable deleteAllContacts() {
+        return databaseContactsManager.deleteAllContacts();
     }
 
     @Override
-    public Completable deleteName(Name name) {
-        return databaseNamesManager.deleteName(name);
+    public Completable deleteContact(Contact contact) {
+        return databaseContactsManager.deleteContact(contact);
     }
 
     @Override
-    public void getListNames() {
-        databaseNamesManager.getListNames();
+    public void getListContacts() {
+        databaseContactsManager.getListContacts();
     }
 
     @Override
-    public void saveEditName(Name name) {
-        sharedPreferencesManager.saveEditName(name);
+    public void saveInfoContact(Contact contact) {
+        sharedPreferencesManager.saveInfoContact(contact);
     }
 
     @Override
-    public Single<Name> getEditName() {
-        return sharedPreferencesManager.getEditName();
+    public Single<Contact> getInfoContact() {
+        return sharedPreferencesManager.getInfoContact();
     }
 
     @Override
     public Completable editName(int id, String name) {
-        return databaseNamesManager.editName(id, name);
+        return databaseContactsManager.editName(id, name);
+    }
+
+    @Override
+    public Completable editCallNumber(int id, String name) {
+        return databaseContactsManager.editName(id, name);
     }
 }
