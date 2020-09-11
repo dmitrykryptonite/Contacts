@@ -7,12 +7,17 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.names.R;
 import com.example.names.domain.entities.Contact;
@@ -33,6 +38,10 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        assert getSupportActionBar() != null;
+        getSupportActionBar().setTitle("Info");
         etName = findViewById(R.id.etName);
         etCallNumber = findViewById(R.id.etCallNumber);
         presenter.onCreateView();
@@ -150,6 +159,27 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
         this.contact = contact;
         etName.setText(contact.getName());
         etCallNumber.setText(contact.getCallNumber());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.info_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_call ) {
+
+        }
+        else if (id == R.id.action_edit) {
+
+        }
+        else if(id == R.id.action_delete) {
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

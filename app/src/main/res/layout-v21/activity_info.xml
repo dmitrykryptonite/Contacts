@@ -25,7 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/etCallNumber"
         android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginEnd="10dp"
         android:gravity="center_vertical"
         android:hint="@string/enter_your_name_please"
@@ -34,9 +33,7 @@
         android:lines="1"
         android:maxLines="1"
         android:paddingStart="5dp"
-        android:paddingLeft="5dp"
         android:paddingEnd="0dp"
-        android:paddingRight="0dp"
         android:textColor="@android:color/black"
         android:textSize="15sp"
         android:theme="@style/EditTextTheme" />
@@ -47,7 +44,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/centerVertical"
         android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_marginEnd="10dp"
         android:gravity="center_vertical"
         android:hint="@string/enter_your_call_number_please"
@@ -56,9 +52,7 @@
         android:lines="1"
         android:maxLines="1"
         android:paddingStart="5dp"
-        android:paddingLeft="5dp"
         android:paddingEnd="0dp"
-        android:paddingRight="0dp"
         android:textColor="@android:color/black"
         android:textSize="15sp"
         android:theme="@style/EditTextTheme" />
@@ -82,9 +76,7 @@
         android:layout_below="@+id/centerVertical"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
         android:layout_toStartOf="@+id/centerHorizontal"
-        android:layout_toLeftOf="@+id/centerHorizontal"
         android:contentDescription="@string/image_cancel_changing"
         android:src="@drawable/ic_cancel_red" />
 
@@ -94,10 +86,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/centerVertical"
         android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/centerHorizontal"
-        android:layout_toRightOf="@+id/centerHorizontal"
         android:contentDescription="@string/image_submit_changing"
         android:src="@drawable/ic_submit_green" />
 

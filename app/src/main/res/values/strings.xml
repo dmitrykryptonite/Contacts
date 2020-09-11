@@ -2,7 +2,7 @@
     <string name="app_name">Contacts</string>
     <string name="enter_your_name_please" tools:ignore="TypographyEllipsis">Enter your name, please...</string>
     <string name="submit">SUBMIT</string>
-    <string name="delete_all_names">Delete all contacts</string>
+    <string name="delete_all_contacts">Delete all contacts</string>
     <string name="are_you_sure_delete_all_contacts">Are you sure delete all contacts?</string>
     <string name="contacts">CONTACTS</string>
     <string name="image_cancel_changing">Image: cancel changing</string>
@@ -13,4 +13,6 @@
     <string name="image_info_contact">Image: info contact</string>
     <string name="image_call_contact">Image: call contact</string>
     <string name="enter_your_call_number_please" tools:ignore="TypographyEllipsis">Enter your call number, please...</string>
+    <string name="delete_contact">Delete Contact</string>
+    <string name="ic_call">Call</string>
 </resources>
