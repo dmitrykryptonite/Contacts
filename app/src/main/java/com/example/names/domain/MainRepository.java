@@ -18,7 +18,5 @@ public interface MainRepository {
 
     Single<Contact> getInfoContact();
 
-    Completable editName(int id, String name);
-
-    Completable editCallNumber(int id, String callNumber);
+    Completable editContact(int id, String name, String callNumber);
 }

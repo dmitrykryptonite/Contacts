@@ -24,7 +24,7 @@ import moxy.presenter.InjectPresenter;
 public class InfoActivity extends MvpAppCompatActivity implements InfoView {
     @InjectPresenter
     InfoPresenter presenter;
-    private EditText etName;
+    private EditText etName, etCallNumber;
     private RelativeLayout rootView;
     private Contact contact;
 
@@ -34,8 +34,10 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
         etName = findViewById(R.id.etName);
+        etCallNumber = findViewById(R.id.etCallNumber);
         presenter.onCreateView();
-        etName.setOnFocusChangeListener((v, hasFocus) -> presenter.onEditTextFocusChanged(hasFocus));
+        etName.setOnFocusChangeListener((v, hasFocus) -> presenter.onEditTextNameFocusChanged(hasFocus));
+        etCallNumber.setOnFocusChangeListener((v, hasFocus) -> presenter.onEditTextCallNumberFocusChanged(hasFocus));
         etName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -57,10 +59,33 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
                             .getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
             }
         });
+
+        etCallNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.length() >= 14) {
+                    etCallNumber.getBackground().mutate().setColorFilter(getResources()
+                            .getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
+                    presenter.wrongLengthEditTextCallNumber();
+                }
+                else
+                    etCallNumber.getBackground().mutate().setColorFilter(getResources()
+                            .getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+            }
+        });
         ImageView imgSubmit = findViewById(R.id.imgSubmit);
         imgSubmit.setOnClickListener(v -> {
             String name = etName.getText().toString();
-            presenter.onImgSubmitClicked(this.contact.getId(), name);
+            String callNumber = etCallNumber.getText().toString();
+            presenter.onImgSubmitClicked(contact.getId(), name, callNumber);
         });
         ImageView imgCancel = findViewById(R.id.imgCancel);
         imgCancel.setOnClickListener(v -> presenter.onImgCancelClicked());
@@ -93,12 +118,21 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
     }
 
     @Override
-    public void showKeyboard() {
+    public void showKeyboardForEtName() {
         final Activity activity = InfoActivity.this;
         final InputMethodManager imm = (InputMethodManager) activity
                 .getSystemService(Context.INPUT_METHOD_SERVICE);
         assert (imm != null);
         imm.showSoftInput(etName, InputMethodManager.SHOW_FORCED);
+    }
+
+    @Override
+    public void showKeyboardForEtCallNumber() {
+        final Activity activity = InfoActivity.this;
+        final InputMethodManager imm = (InputMethodManager) activity
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        assert (imm != null);
+        imm.showSoftInput(etCallNumber, InputMethodManager.SHOW_FORCED);
     }
 
     @Override
@@ -115,6 +149,7 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
     public void setContact(Contact contact) {
         this.contact = contact;
         etName.setText(contact.getName());
+        etCallNumber.setText(contact.getCallNumber());
     }
 
     @Override

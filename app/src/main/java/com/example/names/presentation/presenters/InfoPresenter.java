@@ -18,11 +18,15 @@ public class InfoPresenter extends MvpPresenter<InfoView> {
     private Disposable disposableSetInfoContact, disposableInfoContact;
 
     public void onCreateView() {
-        setEditName();
+        setEditContact();
     }
 
     public void wrongLengthEditText() {
         getViewState().showWarningMassage("Sorry, length name must be 1-40 symbols");
+    }
+
+    public void wrongLengthEditTextCallNumber() {
+        getViewState().showWarningMassage("Sorry, length call number must be 1-13 symbols");
     }
 
     public void onRootViewClicked() {
@@ -30,9 +34,18 @@ public class InfoPresenter extends MvpPresenter<InfoView> {
         getViewState().hideKeyboard();
     }
 
-    public void onEditTextFocusChanged(boolean hasFocus) {
+    public void onEditTextNameFocusChanged(boolean hasFocus) {
         if (hasFocus)
-            getViewState().showKeyboard();
+            getViewState().showKeyboardForEtName();
+        else {
+            getViewState().rootViewIsFocused();
+            getViewState().hideKeyboard();
+        }
+    }
+
+    public void onEditTextCallNumberFocusChanged(boolean hasFocus) {
+        if (hasFocus)
+            getViewState().showKeyboardForEtCallNumber();
         else {
             getViewState().rootViewIsFocused();
             getViewState().hideKeyboard();
@@ -46,14 +59,16 @@ public class InfoPresenter extends MvpPresenter<InfoView> {
         getViewState().showFinishActivityMassage("Contact has not changed");
     }
 
-    public void onImgSubmitClicked(int id, String name) {
+    public void onImgSubmitClicked(int id, String name, String callNumber) {
         name = name.replaceAll("'", "''");
-        if (name.isEmpty())
+        if (name.isEmpty() || callNumber.isEmpty())
             getViewState().showWarningMassage("The line must not be empty");
         else if (name.length() >= 41)
             getViewState().showWarningMassage("Sorry, length name must be 1-40 symbols");
+        else if (callNumber.length() >= 14)
+            getViewState().showWarningMassage("Sorry, length call number must be 1-13 symbols");
         else {
-            Completable editContact = infoInteractorImpl.editName(id, name);
+            Completable editContact = infoInteractorImpl.editContact(id, name, callNumber);
             disposableInfoContact = editContact.subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(() -> {
@@ -76,7 +91,7 @@ public class InfoPresenter extends MvpPresenter<InfoView> {
         getViewState().hideKeyboard();
     }
 
-    private void setEditName() {
+    private void setEditContact() {
         Single<Contact> getInfoContact = infoInteractorImpl.getInfoContact();
         disposableSetInfoContact = getInfoContact.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

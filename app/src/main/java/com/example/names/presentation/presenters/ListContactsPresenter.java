@@ -34,6 +34,12 @@ public class ListContactsPresenter extends MvpPresenter<ListContactsView> {
         listNamesInteractorImpl.getListContacts();
     }
 
+    @Override
+    public void attachView(ListContactsView view) {
+        super.attachView(view);
+        listNamesInteractorImpl.getListContacts();
+    }
+
     public void onBtnDeleteClicked(Contact contact) {
         Completable deleteContact = listNamesInteractorImpl.deleteContact(contact);
         disposableDeleteContact = deleteContact.subscribeOn(Schedulers.io())

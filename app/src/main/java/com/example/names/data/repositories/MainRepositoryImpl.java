@@ -56,12 +56,7 @@ public class MainRepositoryImpl implements MainRepository {
     }
 
     @Override
-    public Completable editName(int id, String name) {
-        return databaseContactsManager.editName(id, name);
-    }
-
-    @Override
-    public Completable editCallNumber(int id, String name) {
-        return databaseContactsManager.editName(id, name);
+    public Completable editContact(int id, String name, String callNumber) {
+        return databaseContactsManager.editContact(id, name, callNumber);
     }
 }

@@ -110,22 +110,12 @@ public class DatabaseContactsManager {
         });
     }
 
-    public Completable editName(int id, String name) {
+    public Completable editContact(int id, String name, String callNumber) {
         return Completable.create(emitter -> {
             SQLiteDatabase sqLiteDatabase = databaseContacts.getWritableDatabase();
             connectionsCount++;
             sqLiteDatabase.execSQL("UPDATE " + TABLE_CONTACTS + " SET " + NAME + " = '" + name +
                     "' WHERE " + CONTACT_ID + " = " + id);
-            closeDB();
-            emitter.onComplete();
-            DatabaseContactsManager.this.emitter.onNext(getAllContacts());
-        });
-    }
-
-    public Completable editCallNumber(int id, String callNumber) {
-        return Completable.create(emitter -> {
-            SQLiteDatabase sqLiteDatabase = databaseContacts.getWritableDatabase();
-            connectionsCount++;
             sqLiteDatabase.execSQL("UPDATE " + TABLE_CONTACTS +
                     " SET " + CALL_NUMBER + " = '" + callNumber +
                     "' WHERE " + CONTACT_ID + " = " + id);

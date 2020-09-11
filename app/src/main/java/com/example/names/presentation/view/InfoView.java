@@ -18,7 +18,10 @@ public interface InfoView extends MvpView {
     void rootViewIsFocused();
 
     @StateStrategyType(SkipStrategy.class)
-    void showKeyboard();
+    void showKeyboardForEtName();
+
+    @StateStrategyType(SkipStrategy.class)
+    void showKeyboardForEtCallNumber();
 
     @StateStrategyType(SkipStrategy.class)
     void hideKeyboard();
