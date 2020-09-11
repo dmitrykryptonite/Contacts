@@ -41,12 +41,12 @@ public class ListNamesRecyclerViewAdapter extends RecyclerView.Adapter<ListNames
     @Override
     public void onBindViewHolder(@NonNull ListNamesRecyclerViewAdapter.ViewHolder holder, int position) {
         final Name name = namesList.get(position);
-        holder.tvItemName.setText(name.getName());
-        holder.tvItemName.setTextIsSelectable(false);
-        holder.tvItemName.measure(-1, -1);
-        holder.tvItemName.setTextIsSelectable(true);
-        holder.imgDeleteName.setOnClickListener(v -> fragment.deleteName(name));
-        holder.imgEditName.setOnClickListener(v -> fragment.openEditItemScreen(name));
+        holder.tvNameContact.setText(name.getName());
+        holder.tvNameContact.setTextIsSelectable(false);
+        holder.tvNameContact.measure(-1, -1);
+        holder.tvNameContact.setTextIsSelectable(true);
+        holder.imgDeleteContact.setOnClickListener(v -> fragment.deleteName(name));
+        holder.imgInfoContact.setOnClickListener(v -> fragment.openEditItemScreen(name));
     }
 
     @Override
@@ -55,14 +55,15 @@ public class ListNamesRecyclerViewAdapter extends RecyclerView.Adapter<ListNames
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvItemName;
-        ImageView imgDeleteName, imgEditName;
+        TextView tvNameContact;
+        ImageView imgCallContact, imgInfoContact, imgDeleteContact;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvItemName = itemView.findViewById(R.id.tvItemName);
-            imgDeleteName = itemView.findViewById(R.id.imgDeleteName);
-            imgEditName = itemView.findViewById(R.id.imgEditName);
+            tvNameContact = itemView.findViewById(R.id.tvNameContact);
+            imgCallContact = itemView.findViewById(R.id.imgCallContact);
+            imgInfoContact = itemView.findViewById(R.id.imgInfoContact);
+            imgDeleteContact = itemView.findViewById(R.id.imgDeleteContact);
         }
     }
 }

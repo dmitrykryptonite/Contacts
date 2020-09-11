@@ -5,10 +5,11 @@
     <string name="delete_all_names">Delete all names</string>
     <string name="are_you_sure_delete_all_names">Are you sure delete all names?</string>
     <string name="names">NAMES</string>
-    <string name="image_delete_name">Image : delete name</string>
     <string name="image_cancel_changing">Image: cancel changing</string>
     <string name="image_submit_changing">Image: submit changing</string>
-    <string name="image_edit_name">Image: edit name</string>
     <string name="positive_btn_ok">OK</string>
     <string name="negative_btn_cancel" tools:ignore="ButtonCase">CANCEL</string>
+    <string name="image_delete_contact">Image: delete contact</string>
+    <string name="image_info_contact">Image: info contact</string>
+    <string name="image_call_contact">Image: call contact</string>
 </resources>
