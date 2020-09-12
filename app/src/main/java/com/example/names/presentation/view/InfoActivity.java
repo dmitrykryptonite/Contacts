@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -92,14 +93,14 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
                             .getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
             }
         });
-        ImageView imgSubmit = findViewById(R.id.imgSubmit);
-        imgSubmit.setOnClickListener(v -> {
+        Button btnOk = findViewById(R.id.btnOk);
+        btnOk.setOnClickListener(v -> {
             String name = etName.getText().toString();
             String callNumber = etCallNumber.getText().toString();
-            presenter.onImgSubmitClicked(contact.getId(), name, callNumber);
+            presenter.onBtnOkClicked(contact.getId(), name, callNumber);
         });
-        ImageView imgCancel = findViewById(R.id.imgCancel);
-        imgCancel.setOnClickListener(v -> presenter.onImgCancelClicked());
+        Button btnCancel = findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(v -> presenter.onBtnCancel());
         rootView = findViewById(R.id.rootView);
         rootView.setOnTouchListener((v, event) -> {
             presenter.onRootViewClicked();

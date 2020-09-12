@@ -61,14 +61,14 @@ public class InfoPresenter extends MvpPresenter<InfoView> {
         }
     }
 
-    public void onImgCancelClicked() {
+    public void onBtnCancel() {
         getViewState().rootViewIsFocused();
         getViewState().hideKeyboard();
         getViewState().finishActivity();
         getViewState().showFinishActivityMassage("Contact has not changed");
     }
 
-    public void onImgSubmitClicked(int id, String name, String callNumber) {
+    public void onBtnOkClicked(int id, String name, String callNumber) {
         name = name.replaceAll("'", "''");
         if (name.isEmpty() || callNumber.isEmpty())
             getViewState().showWarningMassage("The line must not be empty");
@@ -118,7 +118,6 @@ public class InfoPresenter extends MvpPresenter<InfoView> {
                     getViewState().finishActivity();
                     getViewState().showFinishActivityMassage("Contact deleted");
                 });
-
     }
 
     @Override

@@ -75,8 +75,8 @@
         android:layout_height="1dp"
         android:layout_centerHorizontal="true" />
 
-    <ImageView
-        android:id="@+id/imgCancel"
+    <Button
+        android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/centerVertical"
@@ -85,11 +85,13 @@
         android:layout_marginRight="5dp"
         android:layout_toStartOf="@+id/centerHorizontal"
         android:layout_toLeftOf="@+id/centerHorizontal"
-        android:contentDescription="@string/image_cancel_changing"
-        android:src="@drawable/ic_cancel_red" />
+        android:text="@string/negative_btn_cancel"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="bold"
+        android:background="@null"/>
 
-    <ImageView
-        android:id="@+id/imgSubmit"
+    <Button
+        android:id="@+id/btnOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/centerVertical"
@@ -98,7 +100,9 @@
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/centerHorizontal"
         android:layout_toRightOf="@+id/centerHorizontal"
-        android:contentDescription="@string/image_submit_changing"
-        android:src="@drawable/ic_submit_green" />
+        android:text="@string/positive_btn_ok"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:background="@null" />
 
 </RelativeLayout>
