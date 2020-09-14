@@ -22,8 +22,8 @@ public class MainRepositoryImpl implements MainRepository {
     }
 
     private DatabaseContactsManager databaseContactsManager = DatabaseContactsManager.getInstance();
-    public Observable<List<Contact>> namesUpdateListener = databaseContactsManager.contactsUpdateListener;
     private SharedPreferencesManager sharedPreferencesManager = SharedPreferencesManager.getInstance();
+    public Observable<List<Contact>> contactsUpdateListener = databaseContactsManager.contactsUpdateListener;
 
     @Override
     public Completable saveContact(String name, String callNumber) {

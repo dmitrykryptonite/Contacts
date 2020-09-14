@@ -44,6 +44,26 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     }
 
     @Override
+    public void showSuccessMassage(String massage) {
+        Toast.makeText(this, massage, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showErrorMassage(String massage) {
+        Toast.makeText(this, massage, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void hideKeyboard() {
+        final Activity activity = MainActivity.this;
+        final View view = activity.getWindow().getDecorView();
+        final InputMethodManager imm = (InputMethodManager) activity
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        assert (imm != null);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
@@ -68,25 +88,5 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
                 .setPositiveButton(getString(R.string.positive_btn_ok), dialogClickListener)
                 .setNegativeButton(getString(R.string.negative_btn_cancel), dialogClickListener)
                 .show();
-    }
-
-    @Override
-    public void showSuccessMassage(String massage) {
-        Toast.makeText(this, massage, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showErrorMassage(String massage) {
-        Toast.makeText(this, massage, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void hideKeyboard() {
-        final Activity activity = MainActivity.this;
-        final View view = activity.getWindow().getDecorView();
-        final InputMethodManager imm = (InputMethodManager) activity
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
-        assert (imm != null);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

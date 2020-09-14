@@ -43,16 +43,6 @@ public class ListContactsFragment extends MvpAppCompatFragment implements ListCo
     }
 
     @Override
-    public void updateContactsList(List<Contact> listContacts) {
-        adapter.updateContactsList(listContacts);
-    }
-
-    @Override
-    public void deleteContact(Contact contact) {
-        presenter.onBtnDeleteClicked(contact);
-    }
-
-    @Override
     public void showSuccessMassage(String massage) {
         Toast.makeText(getContext(), massage, Toast.LENGTH_SHORT).show();
     }
@@ -63,12 +53,22 @@ public class ListContactsFragment extends MvpAppCompatFragment implements ListCo
     }
 
     @Override
-    public void openInfoScreen(Contact contact) {
-        presenter.onBtnInfoClicked(contact);
+    public void updateContactsList(List<Contact> listContacts) {
+        adapter.updateContactsList(listContacts);
     }
 
     @Override
     public void openCallScreen(Contact contact) {
         presenter.onBtnCallClicked(contact);
+    }
+
+    @Override
+    public void openInfoScreen(Contact contact) {
+        presenter.onBtnInfoClicked(contact);
+    }
+
+    @Override
+    public void deleteContact(Contact contact) {
+        presenter.onBtnDeleteClicked(contact);
     }
 }

@@ -3,11 +3,15 @@ package com.example.names.domain;
 import com.example.names.data.repositories.MainRepositoryImpl;
 import com.example.names.domain.entities.Contact;
 
+import java.util.List;
+
 import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 public class InfoInteractorImpl implements InfoInteractor {
     private MainRepositoryImpl mainRepositoryImpl = MainRepositoryImpl.getInstance();
+    public Observable<List<Contact>> contactsUpdateListener = mainRepositoryImpl.contactsUpdateListener;
 
     @Override
     public Single<Contact> getInfoContact() {

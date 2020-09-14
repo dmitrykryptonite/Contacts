@@ -10,7 +10,7 @@ import io.reactivex.Observable;
 
 public class ListContactsInteractorImpl implements ListContactsInteractor {
     private MainRepositoryImpl mainRepositoryImpl = MainRepositoryImpl.getInstance();
-    public Observable<List<Contact>> namesUpdateListener = mainRepositoryImpl.namesUpdateListener;
+    public Observable<List<Contact>> contactsUpdateListener = mainRepositoryImpl.contactsUpdateListener;
 
     @Override
     public Completable deleteContact(Contact contact) {

@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,7 +33,8 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
     InfoPresenter presenter;
     private EditText etName, etCallNumber;
     private RelativeLayout rootView;
-    private Contact contact;
+    private TextView tvNamePref, tvName, tvCallNumberPref, tvCallNumber;
+    private Button btnOk, btnCancel;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -44,12 +45,23 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
         setSupportActionBar(toolbar);
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle("Info");
+        rootView = findViewById(R.id.rootView);
+        rootView.setOnTouchListener((v, event) -> {
+            presenter.onRootViewClicked();
+            return false;
+        });
         Router router = new Router(this);
         presenter.setRouter(router);
+        tvNamePref = findViewById(R.id.tvNamePref);
+        tvName = findViewById(R.id.tvName);
+        tvCallNumberPref = findViewById(R.id.tvCallNumberPref);
+        tvCallNumber = findViewById(R.id.tvCallNumber);
         etName = findViewById(R.id.etName);
         etCallNumber = findViewById(R.id.etCallNumber);
-        etName.setOnFocusChangeListener((v, hasFocus) -> presenter.onEditTextNameFocusChanged(hasFocus));
-        etCallNumber.setOnFocusChangeListener((v, hasFocus) -> presenter.onEditTextCallNumberFocusChanged(hasFocus));
+        etName.setOnFocusChangeListener((v, hasFocus) ->
+                presenter.onEditTextNameFocusChanged(hasFocus));
+        etCallNumber.setOnFocusChangeListener((v, hasFocus) ->
+                presenter.onEditTextCallNumberFocusChanged(hasFocus));
         etName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -65,8 +77,7 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
                     etName.getBackground().mutate().setColorFilter(getResources()
                             .getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
                     presenter.wrongLengthEditText();
-                }
-                else
+                } else
                     etName.getBackground().mutate().setColorFilter(getResources()
                             .getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
             }
@@ -83,28 +94,22 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length() >= 14) {
+                if (s.length() >= 16) {
                     etCallNumber.getBackground().mutate().setColorFilter(getResources()
                             .getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
                     presenter.wrongLengthEditTextCallNumber();
-                }
-                else
+                } else
                     etCallNumber.getBackground().mutate().setColorFilter(getResources()
                             .getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
             }
         });
-        Button btnOk = findViewById(R.id.btnOk);
+        btnCancel = findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(v -> presenter.onBtnCancelClicked());
+        btnOk = findViewById(R.id.btnOk);
         btnOk.setOnClickListener(v -> {
             String name = etName.getText().toString();
             String callNumber = etCallNumber.getText().toString();
-            presenter.onBtnOkClicked(contact.getId(), name, callNumber);
-        });
-        Button btnCancel = findViewById(R.id.btnCancel);
-        btnCancel.setOnClickListener(v -> presenter.onBtnCancel());
-        rootView = findViewById(R.id.rootView);
-        rootView.setOnTouchListener((v, event) -> {
-            presenter.onRootViewClicked();
-            return false;
+            presenter.onBtnOkClicked(name, callNumber);
         });
     }
 
@@ -115,6 +120,11 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
     }
 
     @Override
+    public void rootViewIsFocused() {
+        rootView.requestFocus();
+    }
+
+    @Override
     public void showWarningMassage(String massage) {
         Toast.makeText(InfoActivity.this, massage, Toast.LENGTH_SHORT).show();
     }
@@ -122,11 +132,6 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
     @Override
     public void showFinishActivityMassage(String massage) {
         Toast.makeText(getApplicationContext(), massage, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void rootViewIsFocused() {
-        rootView.requestFocus();
     }
 
     @Override
@@ -159,9 +164,33 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
 
     @Override
     public void setContact(Contact contact) {
-        this.contact = contact;
         etName.setText(contact.getName());
         etCallNumber.setText(contact.getCallNumber());
+        tvName.setText(contact.getName());
+        tvCallNumber.setText(contact.getCallNumber());
+    }
+
+    @Override
+    public void showPanel(boolean isEditingMode) {
+        if (isEditingMode) {
+            tvNamePref.setVisibility(View.GONE);
+            tvName.setVisibility(View.GONE);
+            tvCallNumberPref.setVisibility(View.GONE);
+            tvCallNumber.setVisibility(View.GONE);
+            etName.setVisibility(View.VISIBLE);
+            etCallNumber.setVisibility(View.VISIBLE);
+            btnCancel.setVisibility(View.VISIBLE);
+            btnOk.setVisibility(View.VISIBLE);
+        } else {
+            etName.setVisibility(View.GONE);
+            etCallNumber.setVisibility(View.GONE);
+            btnCancel.setVisibility(View.GONE);
+            btnOk.setVisibility(View.GONE);
+            tvNamePref.setVisibility(View.VISIBLE);
+            tvName.setVisibility(View.VISIBLE);
+            tvCallNumberPref.setVisibility(View.VISIBLE);
+            tvCallNumber.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -173,16 +202,20 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_call ) {
+        if (id == R.id.action_call) {
             presenter.onBtnCallCLicked();
-        }
-        else if (id == R.id.action_edit) {
-
-        }
-        else if(id == R.id.action_delete) {
+        } else if (id == R.id.action_edit) {
+            presenter.onBtnEditClicked();
+        } else if (id == R.id.action_delete) {
             presenter.onBtnDeleteClicked();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.onResumeView();
     }
 
     @Override

@@ -37,10 +37,17 @@ public class AddContactFragment extends MvpAppCompatFragment implements AddConta
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragmet_add_contact, container, false);
+        rootView = view.findViewById(R.id.rootView);
+        rootView.setOnTouchListener((v, event) -> {
+            presenter.onRootViewClicked();
+            return false;
+        });
         etName = view.findViewById(R.id.etName);
         etCallNumber = view.findViewById(R.id.etCallNumber);
-        etName.setOnFocusChangeListener((v, hasFocus) -> presenter.onEditTextNameFocusChanged(hasFocus));
-        etCallNumber.setOnFocusChangeListener((v, hasFocus) -> presenter.onEditTextCallNumberFocusChanged(hasFocus));
+        etName.setOnFocusChangeListener((v, hasFocus) ->
+                presenter.onEditTextNameFocusChanged(hasFocus));
+        etCallNumber.setOnFocusChangeListener((v, hasFocus) ->
+                presenter.onEditTextCallNumberFocusChanged(hasFocus));
         etName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -73,7 +80,7 @@ public class AddContactFragment extends MvpAppCompatFragment implements AddConta
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.length() >= 14) {
+                if (s.length() >= 16) {
                     etCallNumber.getBackground().mutate().setColorFilter(getResources()
                             .getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
                     presenter.wrongLengthEditTextCallNumber();
@@ -88,11 +95,6 @@ public class AddContactFragment extends MvpAppCompatFragment implements AddConta
             String name = etName.getText().toString();
             String callNumber = etCallNumber.getText().toString();
             presenter.onBtnSubmitClicked(name, callNumber);
-        });
-        rootView = view.findViewById(R.id.rootView);
-        rootView.setOnTouchListener((v, event) -> {
-            presenter.onRootViewClicked();
-            return false;
         });
         return view;
     }

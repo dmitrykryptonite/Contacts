@@ -5,10 +5,6 @@ import com.example.names.domain.entities.Contact;
 import com.example.names.navigation.Router;
 import com.example.names.presentation.view.ListContactsView;
 
-import java.util.List;
-
-import io.reactivex.Completable;
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -17,35 +13,27 @@ import moxy.MvpPresenter;
 
 @InjectViewState
 public class ListContactsPresenter extends MvpPresenter<ListContactsView> {
-    private ListContactsInteractorImpl listNamesInteractorImpl = new ListContactsInteractorImpl();
+    private ListContactsInteractorImpl listContactsInteractorImpl = new ListContactsInteractorImpl();
     private Disposable disposableUpdateListContacts, disposableDeleteContact;
     private Router router;
 
     public ListContactsPresenter() {
-        Observable<List<Contact>> namesUpdateListener = listNamesInteractorImpl.namesUpdateListener;
-        disposableUpdateListContacts = namesUpdateListener.subscribeOn(Schedulers.io())
+        disposableUpdateListContacts = listContactsInteractorImpl.contactsUpdateListener
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(names -> getViewState().updateContactsList(names));
+                .subscribe(contacts -> getViewState().updateContactsList(contacts));
     }
 
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
-        listNamesInteractorImpl.getListContacts();
+        listContactsInteractorImpl.getListContacts();
     }
 
     @Override
     public void attachView(ListContactsView view) {
         super.attachView(view);
-        listNamesInteractorImpl.getListContacts();
-    }
-
-    public void onBtnDeleteClicked(Contact contact) {
-        Completable deleteContact = listNamesInteractorImpl.deleteContact(contact);
-        disposableDeleteContact = deleteContact.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> getViewState().showSuccessMassage("Contact deleted"),
-                        throwable -> getViewState().showErrorMassage(throwable.getMessage()));
+        listContactsInteractorImpl.getListContacts();
     }
 
     public void setRouter(Router router) {
@@ -53,12 +41,20 @@ public class ListContactsPresenter extends MvpPresenter<ListContactsView> {
     }
 
     public void onBtnInfoClicked(Contact contact) {
-        listNamesInteractorImpl.saveInfoContact(contact);
+        listContactsInteractorImpl.saveInfoContact(contact);
         router.openInfoScreen();
     }
 
     public void onBtnCallClicked(Contact contact) {
         router.openCallScreen(contact);
+    }
+
+    public void onBtnDeleteClicked(Contact contact) {
+        disposableDeleteContact = listContactsInteractorImpl.deleteContact(contact)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> getViewState().showSuccessMassage("Contact deleted"),
+                        throwable -> getViewState().showErrorMassage(throwable.getMessage()));
     }
 
     @Override

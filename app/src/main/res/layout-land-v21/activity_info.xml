@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,6 +18,28 @@
         android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:titleTextAppearance="@style/Toolbar.TitleText" />
+
+    <TextView
+        android:id="@+id/tvNamePref"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/centerVertical"
+        android:layout_marginStart="10dp"
+        android:text="@string/name"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/centerVertical"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@+id/tvNamePref"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        tools:text="PAPAYEE" />
 
     <EditText
         android:id="@+id/etName"
@@ -36,7 +58,8 @@
         android:paddingEnd="0dp"
         android:textColor="@android:color/black"
         android:textSize="15sp"
-        android:theme="@style/EditTextTheme" />
+        android:theme="@style/EditTextTheme"
+        android:visibility="gone"/>
 
     <EditText
         android:id="@+id/etCallNumber"
@@ -55,7 +78,8 @@
         android:paddingEnd="0dp"
         android:textColor="@android:color/black"
         android:textSize="15sp"
-        android:theme="@style/EditTextTheme" />
+        android:theme="@style/EditTextTheme"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/centerVertical"
@@ -69,6 +93,28 @@
         android:layout_height="1dp"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:id="@+id/tvCallNumberPref"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/centerVertical"
+        android:layout_marginStart="10dp"
+        android:text="@string/tel"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tvCallNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/centerVertical"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@+id/tvCallNumberPref"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        tools:text="7777" />
+
     <Button
         android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
@@ -77,10 +123,11 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="5dp"
         android:layout_toStartOf="@+id/centerHorizontal"
+        android:background="@null"
         android:text="@string/negative_btn_cancel"
         android:textColor="@android:color/holo_red_dark"
         android:textStyle="bold"
-        android:background="@null"/>
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/btnOk"
@@ -90,9 +137,10 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/centerHorizontal"
+        android:background="@null"
         android:text="@string/positive_btn_ok"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
-        android:background="@null" />
+        android:visibility="gone"/>
 
 </RelativeLayout>

@@ -15,4 +15,6 @@
     <string name="enter_your_call_number_please" tools:ignore="TypographyEllipsis">Enter your call number, please...</string>
     <string name="delete_contact">Delete Contact</string>
     <string name="ic_call">Call</string>
+    <string name="name">Name:</string>
+    <string name="tel">Tel:</string>
 </resources>

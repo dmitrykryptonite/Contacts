@@ -10,20 +10,20 @@ import moxy.viewstate.strategy.StateStrategyType;
 
 public interface ListContactsView extends MvpView {
     @StateStrategyType(SkipStrategy.class)
-    void updateContactsList(List<Contact> listContacts);
-
-    @StateStrategyType(SkipStrategy.class)
-    void deleteContact(Contact contact);
-
-    @StateStrategyType(SkipStrategy.class)
     void showSuccessMassage(String massage);
 
     @StateStrategyType(SkipStrategy.class)
     void showErrorMassage(String massage);
 
     @StateStrategyType(SkipStrategy.class)
-    void openInfoScreen(Contact contact);
+    void updateContactsList(List<Contact> listContacts);
 
     @StateStrategyType(SkipStrategy.class)
     void openCallScreen(Contact contact);
+
+    @StateStrategyType(SkipStrategy.class)
+    void openInfoScreen(Contact contact);
+
+    @StateStrategyType(SkipStrategy.class)
+    void deleteContact(Contact contact);
 }

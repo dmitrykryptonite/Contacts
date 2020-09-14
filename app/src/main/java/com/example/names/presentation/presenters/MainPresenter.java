@@ -3,7 +3,6 @@ package com.example.names.presentation.presenters;
 import com.example.names.domain.MainInteractorImpl;
 import com.example.names.presentation.view.MainView;
 
-import io.reactivex.Completable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -16,8 +15,8 @@ public class MainPresenter extends MvpPresenter<MainView> {
     private Disposable disposableDeleteAllContacts;
 
     public void onBtnDeleteClicked() {
-        Completable deleteAllContacts = mainInteractorImpl.deleteAllContacts();
-        disposableDeleteAllContacts = deleteAllContacts.subscribeOn(Schedulers.io())
+        disposableDeleteAllContacts = mainInteractorImpl.deleteAllContacts()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> getViewState().showSuccessMassage("All contacts deleted"),
                         throwable -> getViewState().showErrorMassage(throwable.getMessage()));
