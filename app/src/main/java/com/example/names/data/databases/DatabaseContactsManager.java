@@ -33,8 +33,9 @@ public class DatabaseContactsManager {
     private DatabaseContacts databaseContacts;
 
     private DatabaseContactsManager() {
-        contactsUpdateListener = Observable.create(emitter ->
+        Observable<List<Contact>> observable = Observable.create(emitter ->
                 DatabaseContactsManager.this.emitter = emitter);
+        contactsUpdateListener = observable.share();
         databaseContacts = new DatabaseContacts(App.getApp());
     }
 
