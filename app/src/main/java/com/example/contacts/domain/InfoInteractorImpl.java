@@ -1,7 +1,7 @@
 package com.example.contacts.domain;
 
-import com.example.contacts.domain.entities.Contact;
 import com.example.contacts.data.repositories.MainRepositoryImpl;
+import com.example.contacts.domain.entities.Contact;
 
 import java.util.List;
 

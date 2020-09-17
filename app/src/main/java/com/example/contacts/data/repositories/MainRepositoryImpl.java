@@ -1,9 +1,9 @@
 package com.example.contacts.data.repositories;
 
-import com.example.contacts.domain.MainRepository;
-import com.example.contacts.domain.entities.Contact;
 import com.example.contacts.data.SharedPreferencesManager;
 import com.example.contacts.data.databases.DatabaseContactsManager;
+import com.example.contacts.domain.MainRepository;
+import com.example.contacts.domain.entities.Contact;
 
 import java.util.List;
 

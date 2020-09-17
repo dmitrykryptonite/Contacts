@@ -8,7 +8,6 @@ import moxy.viewstate.strategy.SkipStrategy;
 import moxy.viewstate.strategy.StateStrategyType;
 
 public interface InfoView extends MvpView {
-
     @StateStrategyType(SkipStrategy.class)
     void editTextNameClearFocus();
 

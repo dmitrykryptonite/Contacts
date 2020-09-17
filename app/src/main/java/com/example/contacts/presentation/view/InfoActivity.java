@@ -7,23 +7,19 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
-
-import com.example.contacts.presentation.presenters.InfoPresenter;
 import com.example.contacts.R;
 import com.example.contacts.domain.entities.Contact;
 import com.example.contacts.navigation.Router;
+import com.example.contacts.presentation.presenters.InfoPresenter;
 
 import moxy.MvpAppCompatActivity;
 import moxy.presenter.InjectPresenter;
@@ -34,16 +30,14 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
     private EditText etName, etCallNumber;
     private TextView tvNamePref, tvName, tvCallNumberPref, tvCallNumber;
     private Button btnOk, btnCancel;
+    private ImageButton btnEdit;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        assert getSupportActionBar() != null;
-        getSupportActionBar().setTitle("Info");
+
         RelativeLayout rootView = findViewById(R.id.rootView);
         rootView.setOnTouchListener((v, event) -> {
             presenter.onRootViewClicked();
@@ -106,6 +100,12 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
             String callNumber = etCallNumber.getText().toString();
             presenter.onBtnOkClicked(name, callNumber);
         });
+        ImageButton btnCall = findViewById(R.id.btnCall);
+        btnCall.setOnClickListener(v -> presenter.onBtnCallCLicked());
+        btnEdit = findViewById(R.id.btnEdit);
+        btnEdit.setOnClickListener(v -> presenter.onBtnEditClicked());
+        ImageButton btnDelete = findViewById(R.id.btnDelete);
+        btnDelete.setOnClickListener(v -> presenter.onBtnDeleteClicked());
     }
 
     @Override
@@ -169,6 +169,7 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
             tvName.setVisibility(View.GONE);
             tvCallNumberPref.setVisibility(View.GONE);
             tvCallNumber.setVisibility(View.GONE);
+            btnEdit.setVisibility(View.GONE);
             etName.setVisibility(View.VISIBLE);
             etCallNumber.setVisibility(View.VISIBLE);
             btnCancel.setVisibility(View.VISIBLE);
@@ -182,26 +183,8 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
             tvName.setVisibility(View.VISIBLE);
             tvCallNumberPref.setVisibility(View.VISIBLE);
             tvCallNumber.setVisibility(View.VISIBLE);
+            btnEdit.setVisibility(View.VISIBLE);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.info_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_call) {
-            presenter.onBtnCallCLicked();
-        } else if (id == R.id.action_edit) {
-            presenter.onBtnEditClicked();
-        } else if (id == R.id.action_delete) {
-            presenter.onBtnDeleteClicked();
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 
-import com.example.contacts.presentation.view.InfoActivity;
 import com.example.contacts.domain.entities.Contact;
+import com.example.contacts.presentation.view.InfoActivity;
 
 public class Router {
     private Activity activity;

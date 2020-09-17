@@ -19,8 +19,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.contacts.presentation.presenters.AddContactPresenter;
 import com.example.contacts.R;
+import com.example.contacts.presentation.presenters.AddContactPresenter;
 
 import moxy.MvpAppCompatFragment;
 import moxy.presenter.InjectPresenter;

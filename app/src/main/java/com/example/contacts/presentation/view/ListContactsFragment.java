@@ -11,11 +11,11 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.contacts.presentation.presenters.ListContactsPresenter;
-import com.example.contacts.presentation.ui.adapters.ListContactsRecyclerViewAdapter;
 import com.example.contacts.R;
 import com.example.contacts.domain.entities.Contact;
 import com.example.contacts.navigation.Router;
+import com.example.contacts.presentation.presenters.ListContactsPresenter;
+import com.example.contacts.presentation.ui.adapters.ListContactsRecyclerViewAdapter;
 
 import java.util.List;
 

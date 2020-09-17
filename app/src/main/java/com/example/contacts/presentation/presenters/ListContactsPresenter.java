@@ -40,13 +40,13 @@ public class ListContactsPresenter extends MvpPresenter<ListContactsView> {
         this.router = router;
     }
 
+    public void onBtnCallClicked(Contact contact) {
+        router.openCallScreen(contact);
+    }
+
     public void onBtnInfoClicked(Contact contact) {
         listContactsInteractorImpl.saveInfoContact(contact);
         router.openInfoScreen();
-    }
-
-    public void onBtnCallClicked(Contact contact) {
-        router.openCallScreen(contact);
     }
 
     public void onBtnDeleteClicked(Contact contact) {

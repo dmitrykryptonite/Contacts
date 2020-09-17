@@ -12,8 +12,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.contacts.presentation.presenters.MainPresenter;
 import com.example.contacts.R;
+import com.example.contacts.presentation.presenters.MainPresenter;
 import com.example.contacts.presentation.ui.adapters.MainFragmentPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 

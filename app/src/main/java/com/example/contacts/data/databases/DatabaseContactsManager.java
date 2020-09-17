@@ -4,8 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.contacts.domain.entities.Contact;
 import com.example.contacts.app.App;
+import com.example.contacts.domain.entities.Contact;
 
 import java.util.ArrayList;
 import java.util.List;
