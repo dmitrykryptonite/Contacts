@@ -17,4 +17,5 @@
     <string name="ic_call">Call</string>
     <string name="name">Name:</string>
     <string name="tel">Tel:</string>
+    <string name="button_delete_all_contacts">Button: delete all contacts</string>
 </resources>

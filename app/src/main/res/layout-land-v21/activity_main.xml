@@ -6,23 +6,44 @@
     android:layout_height="match_parent"
     tools:context="com.example.contacts.presentation.view.MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <RelativeLayout
+        android:id="@+id/customToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:elevation="4dp"
-        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:titleTextAppearance="@style/Toolbar.TitleText" />
+        android:padding="15dp"
+        tools:ignore="UselessLeaf">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:ignore="RelativeOverlap" />
+
+        <ImageButton
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@color/colorPrimary"
+            android:contentDescription="@string/button_delete_all_contacts"
+            android:src="@drawable/ic_delete_white" />
+
+    </RelativeLayout>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/customToolbar"
         android:background="@color/colorPrimary"
-        android:elevation="4dp"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/colorPrimaryDark"
         app:tabIndicatorHeight="5dp"
