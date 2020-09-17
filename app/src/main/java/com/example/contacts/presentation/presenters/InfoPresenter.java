@@ -45,6 +45,8 @@ public class InfoPresenter extends MvpPresenter<InfoView> {
     public void onRootViewClicked() {
         getViewState().editTextCallNumberClearFocus();
         getViewState().editTextNameClearFocus();
+        getViewState().textViewNameClearFocus();
+        getViewState().textViewCallNumberClearFocus();
         getViewState().hideKeyboard();
     }
 
@@ -112,6 +114,8 @@ public class InfoPresenter extends MvpPresenter<InfoView> {
     public void onPauseView() {
         getViewState().editTextNameClearFocus();
         getViewState().editTextCallNumberClearFocus();
+        getViewState().textViewNameClearFocus();
+        getViewState().textViewCallNumberClearFocus();
         getViewState().hideKeyboard();
     }
 

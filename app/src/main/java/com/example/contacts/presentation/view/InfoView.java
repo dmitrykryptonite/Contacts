@@ -16,6 +16,12 @@ public interface InfoView extends MvpView {
     void editTextCallNumberClearFocus();
 
     @StateStrategyType(SkipStrategy.class)
+    void textViewNameClearFocus();
+
+    @StateStrategyType(SkipStrategy.class)
+    void textViewCallNumberClearFocus();
+
+    @StateStrategyType(SkipStrategy.class)
     void showWarningMassage(String massage);
 
     @StateStrategyType(SkipStrategy.class)

@@ -125,6 +125,16 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
     }
 
     @Override
+    public void textViewNameClearFocus() {
+        tvName.clearFocus();
+    }
+
+    @Override
+    public void textViewCallNumberClearFocus() {
+        tvCallNumber.clearFocus();
+    }
+
+    @Override
     public void showWarningMassage(String massage) {
         Toast.makeText(InfoActivity.this, massage, Toast.LENGTH_SHORT).show();
     }
