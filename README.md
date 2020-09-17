@@ -36,7 +36,7 @@ Again click call in Info Activity and check changes in call number:
 
 <img src="https://github.com/dmitrykryptonite/Names/blob/master/11.jpg" width="250" height="411" alt="Open call screen with call number contact" />
 
-Press back and check changes contact in all contacts:
+Press back and check changes contact in All Contacts:
 
 <img src="https://github.com/dmitrykryptonite/Names/blob/master/12.jpg" width="250" height="411" alt="Press back and check changes contact" />
 
