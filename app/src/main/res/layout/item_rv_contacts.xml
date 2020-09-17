@@ -20,40 +20,42 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
-            android:layout_toStartOf="@+id/imgCallContact"
-            android:layout_toLeftOf="@+id/imgCallContact"
+            android:layout_toStartOf="@+id/btnCallContact"
+            android:layout_toLeftOf="@+id/btnCallContact"
             android:gravity="center_vertical"
+            android:singleLine="true"
             android:textColor="@android:color/black"
             android:textSize="15sp"
-            android:singleLine="true"
             tools:text="PAPAYEE" />
 
-        <ImageView
-            android:id="@+id/imgCallContact"
+        <ImageButton
+            android:id="@+id/btnCallContact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
-            android:layout_toStartOf="@+id/imgInfoContact"
-            android:layout_toLeftOf="@+id/imgInfoContact"
+            android:layout_toStartOf="@+id/btnInfoContact"
+            android:layout_toLeftOf="@+id/btnInfoContact"
+            android:background="@android:color/white"
             android:contentDescription="@string/image_call_contact"
             android:src="@drawable/ic_call_green" />
 
-        <ImageView
-            android:id="@+id/imgInfoContact"
+        <ImageButton
+            android:id="@+id/btnInfoContact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
-            android:layout_toStartOf="@+id/imgDeleteContact"
-            android:layout_toLeftOf="@+id/imgDeleteContact"
+            android:layout_toStartOf="@+id/btnDeleteContact"
+            android:layout_toLeftOf="@+id/btnDeleteContact"
+            android:background="@android:color/white"
             android:contentDescription="@string/image_info_contact"
             android:src="@drawable/ic_info_bue" />
 
-        <ImageView
-            android:id="@+id/imgDeleteContact"
+        <ImageButton
+            android:id="@+id/btnDeleteContact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -61,6 +63,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="7dp"
             android:layout_marginRight="7dp"
+            android:background="@android:color/white"
             android:contentDescription="@string/image_delete_contact"
             android:src="@drawable/ic_delete_red" />
 
