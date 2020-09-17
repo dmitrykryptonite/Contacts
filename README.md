@@ -32,7 +32,7 @@ Click edit:
 
 <img src="https://github.com/dmitrykryptonite/Names/blob/master/8.jpg" width="250" height="411" alt="Start editing" /> <img src="https://github.com/dmitrykryptonite/Names/blob/master/9.jpg" width="250" height="411" alt="Before the finish check editing" /> <img src="https://github.com/dmitrykryptonite/Names/blob/master/10.jpg" width="250" height="411" alt="Finish Editing" />
 
-Again click call in Info Activity:
+Again click call in Info Activity and check changes in call number:
 
 <img src="https://github.com/dmitrykryptonite/Names/blob/master/11.jpg" width="250" height="411" alt="Open call screen with call number contact" />
 
@@ -47,7 +47,11 @@ Contact deleted, Toast showned, All Contacts opened with updated list contacts:
 
 Add three contacts and delete them:
 
-<img src="https://github.com/dmitrykryptonite/Names/blob/master/14.jpg" width="250" height="411" alt="Add first contact" /> <img src="https://github.com/dmitrykryptonite/Names/blob/master/15.jpg" width="250" height="411" alt="Add second contact" /> <img src="https://github.com/dmitrykryptonite/Names/blob/master/16.jpg" width="250" height="411" alt="Add third contact" /><img src="https://github.com/dmitrykryptonite/Names/blob/master/17.jpg" width="250" height="411" alt="Check added contacts" />
+<img src="https://github.com/dmitrykryptonite/Names/blob/master/14.jpg" width="250" height="411" alt="Add first contact" /> <img src="https://github.com/dmitrykryptonite/Names/blob/master/15.jpg" width="250" height="411" alt="Add second contact" /> <img src="https://github.com/dmitrykryptonite/Names/blob/master/16.jpg" width="250" height="411" alt="Add third contact" />
+
+Check added contacts:
+
+<img src="https://github.com/dmitrykryptonite/Names/blob/master/17.jpg" width="250" height="411" alt="Check added contacts" />
 
 Delete a contact (Click delete on Contact1):
 
@@ -61,4 +65,4 @@ Then click OK:
 
 <img src="https://github.com/dmitrykryptonite/Names/blob/master/20.jpg" width="250" height="411" alt="Add second contact" />
 
-All contacts deleted.
+All contacts deleted, list of contacts updated, Toast showned.
