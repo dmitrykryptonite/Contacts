@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:context=".presentation.view.InfoActivity">
+    tools:context="com.example.contacts.presentation.view.InfoActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

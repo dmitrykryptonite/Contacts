@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.names">
+    package="com.example.contacts">
 
     <application
-        android:name=".app.App"
+        android:name="com.example.contacts.app.App"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@drawable/icon_list"
@@ -11,8 +11,8 @@
         android:roundIcon="@drawable/icon_list"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.view.InfoActivity" />
-        <activity android:name=".presentation.view.MainActivity">
+        <activity android:name="com.example.contacts.presentation.view.InfoActivity" />
+        <activity android:name="com.example.contacts.presentation.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
