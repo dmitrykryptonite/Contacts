@@ -33,7 +33,7 @@ public class ListContactsRecyclerViewAdapter extends RecyclerView.Adapter<ListCo
     @Override
     public ListContactsRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_rv_names, parent, false);
+                .inflate(R.layout.item_rv_contacts, parent, false);
 
         return new ViewHolder(view);
     }
@@ -42,9 +42,6 @@ public class ListContactsRecyclerViewAdapter extends RecyclerView.Adapter<ListCo
     public void onBindViewHolder(@NonNull ListContactsRecyclerViewAdapter.ViewHolder holder, int position) {
         final Contact contact = namesList.get(position);
         holder.tvNameContact.setText(contact.getName());
-        holder.tvNameContact.setTextIsSelectable(false);
-        holder.tvNameContact.measure(-1, -1);
-        holder.tvNameContact.setTextIsSelectable(true);
         holder.imgDeleteContact.setOnClickListener(v -> fragment.deleteContact(contact));
         holder.imgInfoContact.setOnClickListener(v -> fragment.openInfoScreen(contact));
         holder.imgCallContact.setOnClickListener(v -> fragment.openCallScreen(contact));
