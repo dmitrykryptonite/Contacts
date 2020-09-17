@@ -88,6 +88,9 @@ public class InfoPresenter extends MvpPresenter<InfoView> {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(() -> {
+                        getViewState().editTextCallNumberClearFocus();
+                        getViewState().editTextNameClearFocus();
+                        getViewState().hideKeyboard();
                         isEditingMode = false;
                         getViewState().showPanel(isEditingMode);
                         getViewState().showFinishActivityMassage("Contact changed");
