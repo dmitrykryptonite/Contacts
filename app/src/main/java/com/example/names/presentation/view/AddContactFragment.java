@@ -29,7 +29,6 @@ public class AddContactFragment extends MvpAppCompatFragment implements AddConta
     private EditText etName, etCallNumber;
     @InjectPresenter
     AddContactPresenter presenter;
-    private RelativeLayout rootView;
 
     @SuppressLint("ClickableViewAccessibility")
     @Nullable
@@ -37,17 +36,13 @@ public class AddContactFragment extends MvpAppCompatFragment implements AddConta
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragmet_add_contact, container, false);
-        rootView = view.findViewById(R.id.rootView);
+        RelativeLayout rootView = view.findViewById(R.id.rootView);
         rootView.setOnTouchListener((v, event) -> {
             presenter.onRootViewClicked();
             return false;
         });
         etName = view.findViewById(R.id.etName);
         etCallNumber = view.findViewById(R.id.etCallNumber);
-        etName.setOnFocusChangeListener((v, hasFocus) ->
-                presenter.onEditTextNameFocusChanged(hasFocus));
-        etCallNumber.setOnFocusChangeListener((v, hasFocus) ->
-                presenter.onEditTextCallNumberFocusChanged(hasFocus));
         etName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -115,8 +110,13 @@ public class AddContactFragment extends MvpAppCompatFragment implements AddConta
     }
 
     @Override
-    public void rootViewIsFocused() {
-        rootView.requestFocus();
+    public void editTextNameClearFocus() {
+        etName.clearFocus();
+    }
+
+    @Override
+    public void editTextCallNumberClearFocus() {
+        etCallNumber.clearFocus();
     }
 
     @Override
@@ -127,26 +127,6 @@ public class AddContactFragment extends MvpAppCompatFragment implements AddConta
     @Override
     public void setTextEditTextCallNumber(String text) {
         etCallNumber.setText(text);
-    }
-
-    @Override
-    public void showKeyboardForEtName() {
-        final Activity activity = getActivity();
-        assert activity != null;
-        final InputMethodManager imm = (InputMethodManager) activity
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
-        assert (imm != null);
-        imm.showSoftInput(etName, InputMethodManager.SHOW_FORCED);
-    }
-
-    @Override
-    public void showKeyboardForEtCallNumber() {
-        final Activity activity = getActivity();
-        assert activity != null;
-        final InputMethodManager imm = (InputMethodManager) activity
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
-        assert (imm != null);
-        imm.showSoftInput(etCallNumber, InputMethodManager.SHOW_FORCED);
     }
 
     @Override

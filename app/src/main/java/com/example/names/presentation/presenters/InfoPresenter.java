@@ -39,34 +39,16 @@ public class InfoPresenter extends MvpPresenter<InfoView> {
                 .subscribe(contact -> {
                     getViewState().setContact(contact);
                     mContact = contact;
-                    isEditingMode = false;
-                    getViewState().showPanel(isEditingMode);
-                    getViewState().showFinishActivityMassage("Contact changed");
                 });
     }
 
     public void onRootViewClicked() {
-        getViewState().rootViewIsFocused();
+        getViewState().editTextCallNumberClearFocus();
+        getViewState().editTextNameClearFocus();
         getViewState().hideKeyboard();
     }
 
-    public void onEditTextNameFocusChanged(boolean hasFocus) {
-        if (hasFocus)
-            getViewState().showKeyboardForEtName();
-        else {
-            getViewState().hideKeyboard();
-        }
-    }
-
-    public void onEditTextCallNumberFocusChanged(boolean hasFocus) {
-        if (hasFocus)
-            getViewState().showKeyboardForEtCallNumber();
-        else {
-            getViewState().hideKeyboard();
-        }
-    }
-
-    public void wrongLengthEditText() {
+    public void wrongLengthEditTextName() {
         getViewState().showWarningMassage("Sorry, length name must be 1-40 symbols");
     }
 
@@ -105,7 +87,11 @@ public class InfoPresenter extends MvpPresenter<InfoView> {
             disposableInfoContact = infoInteractorImpl.editContact(mContact.getId(), name, callNumber)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe();
+                    .subscribe(() -> {
+                        isEditingMode = false;
+                        getViewState().showPanel(isEditingMode);
+                        getViewState().showFinishActivityMassage("Contact changed");
+                    });
         }
     }
 
@@ -114,22 +100,21 @@ public class InfoPresenter extends MvpPresenter<InfoView> {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
-                    getViewState().rootViewIsFocused();
                     getViewState().hideKeyboard();
                     getViewState().finishActivity();
                     getViewState().showFinishActivityMassage("Contact deleted");
                 });
     }
 
-    public void onBackPressed() {
-        getViewState().rootViewIsFocused();
+    public void onPauseView() {
+        getViewState().editTextNameClearFocus();
+        getViewState().editTextCallNumberClearFocus();
         getViewState().hideKeyboard();
-        getViewState().finishActivity();
     }
 
-    public void onPauseView() {
-        getViewState().rootViewIsFocused();
+    public void onBackPressed() {
         getViewState().hideKeyboard();
+        getViewState().finishActivity();
     }
 
     public void onResumeView() {

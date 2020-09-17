@@ -15,24 +15,9 @@ public class AddContactPresenter extends MvpPresenter<AddContactView> {
     private Disposable disposableSaveContact;
 
     public void onRootViewClicked() {
-        getViewState().rootViewIsFocused();
+        getViewState().editTextCallNumberClearFocus();
+        getViewState().editTextNameClearFocus();
         getViewState().hideKeyboard();
-    }
-
-    public void onEditTextNameFocusChanged(boolean hasFocus) {
-        if (hasFocus)
-            getViewState().showKeyboardForEtName();
-        else {
-            getViewState().hideKeyboard();
-        }
-    }
-
-    public void onEditTextCallNumberFocusChanged(boolean hasFocus) {
-        if (hasFocus)
-            getViewState().showKeyboardForEtCallNumber();
-        else {
-            getViewState().hideKeyboard();
-        }
     }
 
     public void wrongLengthEditTextName() {
@@ -57,15 +42,17 @@ public class AddContactPresenter extends MvpPresenter<AddContactView> {
                     .subscribe(() -> {
                         getViewState().setTextEditTextName("");
                         getViewState().setTextEditTextCallNumber("");
-                        getViewState().hideKeyboard();
                         getViewState().showSuccessMassage("Contact saved");
-                        getViewState().rootViewIsFocused();
+                        getViewState().editTextCallNumberClearFocus();
+                        getViewState().editTextNameClearFocus();
+                        getViewState().hideKeyboard();
                     }, throwable -> getViewState().showErrorMassage(throwable.getMessage()));
         }
     }
 
     public void onPauseView() {
-        getViewState().rootViewIsFocused();
+        getViewState().editTextCallNumberClearFocus();
+        getViewState().editTextNameClearFocus();
         getViewState().hideKeyboard();
     }
 

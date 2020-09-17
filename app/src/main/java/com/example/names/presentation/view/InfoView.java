@@ -8,20 +8,18 @@ import moxy.viewstate.strategy.SkipStrategy;
 import moxy.viewstate.strategy.StateStrategyType;
 
 public interface InfoView extends MvpView {
+
     @StateStrategyType(SkipStrategy.class)
-    void rootViewIsFocused();
+    void editTextNameClearFocus();
+
+    @StateStrategyType(SkipStrategy.class)
+    void editTextCallNumberClearFocus();
 
     @StateStrategyType(SkipStrategy.class)
     void showWarningMassage(String massage);
 
     @StateStrategyType(SkipStrategy.class)
     void showFinishActivityMassage(String massage);
-
-    @StateStrategyType(SkipStrategy.class)
-    void showKeyboardForEtName();
-
-    @StateStrategyType(SkipStrategy.class)
-    void showKeyboardForEtCallNumber();
 
     @StateStrategyType(SkipStrategy.class)
     void hideKeyboard();

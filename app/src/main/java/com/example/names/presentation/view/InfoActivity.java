@@ -32,7 +32,6 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
     @InjectPresenter
     InfoPresenter presenter;
     private EditText etName, etCallNumber;
-    private RelativeLayout rootView;
     private TextView tvNamePref, tvName, tvCallNumberPref, tvCallNumber;
     private Button btnOk, btnCancel;
 
@@ -45,7 +44,7 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
         setSupportActionBar(toolbar);
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle("Info");
-        rootView = findViewById(R.id.rootView);
+        RelativeLayout rootView = findViewById(R.id.rootView);
         rootView.setOnTouchListener((v, event) -> {
             presenter.onRootViewClicked();
             return false;
@@ -58,10 +57,6 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
         tvCallNumber = findViewById(R.id.tvCallNumber);
         etName = findViewById(R.id.etName);
         etCallNumber = findViewById(R.id.etCallNumber);
-        etName.setOnFocusChangeListener((v, hasFocus) ->
-                presenter.onEditTextNameFocusChanged(hasFocus));
-        etCallNumber.setOnFocusChangeListener((v, hasFocus) ->
-                presenter.onEditTextCallNumberFocusChanged(hasFocus));
         etName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -76,7 +71,7 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
                 if (s.length() >= 41) {
                     etName.getBackground().mutate().setColorFilter(getResources()
                             .getColor(android.R.color.holo_red_light), PorterDuff.Mode.SRC_ATOP);
-                    presenter.wrongLengthEditText();
+                    presenter.wrongLengthEditTextName();
                 } else
                     etName.getBackground().mutate().setColorFilter(getResources()
                             .getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
@@ -120,8 +115,13 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
     }
 
     @Override
-    public void rootViewIsFocused() {
-        rootView.requestFocus();
+    public void editTextNameClearFocus() {
+        etName.clearFocus();
+    }
+
+    @Override
+    public void editTextCallNumberClearFocus() {
+        etCallNumber.clearFocus();
     }
 
     @Override
@@ -132,24 +132,6 @@ public class InfoActivity extends MvpAppCompatActivity implements InfoView {
     @Override
     public void showFinishActivityMassage(String massage) {
         Toast.makeText(getApplicationContext(), massage, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showKeyboardForEtName() {
-        final Activity activity = InfoActivity.this;
-        final InputMethodManager imm = (InputMethodManager) activity
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
-        assert (imm != null);
-        imm.showSoftInput(etName, InputMethodManager.SHOW_FORCED);
-    }
-
-    @Override
-    public void showKeyboardForEtCallNumber() {
-        final Activity activity = InfoActivity.this;
-        final InputMethodManager imm = (InputMethodManager) activity
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
-        assert (imm != null);
-        imm.showSoftInput(etCallNumber, InputMethodManager.SHOW_FORCED);
     }
 
     @Override
