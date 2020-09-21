@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.example.contacts.R;
 import com.example.contacts.domain.entities.Contact;
 import com.example.contacts.navigation.Router;
-import com.example.contacts.presentation.presenters.InfoPresenter;
+import com.example.contacts.presentation.presenter.InfoPresenter;
 
 import moxy.MvpAppCompatActivity;
 import moxy.presenter.InjectPresenter;

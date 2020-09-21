@@ -1,6 +1,6 @@
 package com.example.contacts.domain;
 
-import com.example.contacts.data.repositories.MainRepositoryImpl;
+import com.example.contacts.data.repository.MainRepositoryImpl;
 
 import io.reactivex.Completable;
 

@@ -1,4 +1,4 @@
-package com.example.contacts.presentation.presenters;
+package com.example.contacts.presentation.presenter;
 
 import com.example.contacts.domain.InfoInteractorImpl;
 import com.example.contacts.domain.entities.Contact;

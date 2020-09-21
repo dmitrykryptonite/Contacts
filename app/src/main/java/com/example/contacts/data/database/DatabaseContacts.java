@@ -1,4 +1,4 @@
-package com.example.contacts.data.databases;
+package com.example.contacts.data.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

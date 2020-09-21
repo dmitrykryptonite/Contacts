@@ -1,4 +1,4 @@
-package com.example.contacts.data.databases;
+package com.example.contacts.data.database;
 
 import android.content.ContentValues;
 import android.database.Cursor;

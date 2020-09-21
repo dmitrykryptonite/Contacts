@@ -1,7 +1,7 @@
-package com.example.contacts.data.repositories;
+package com.example.contacts.data.repository;
 
 import com.example.contacts.data.SharedPreferencesManager;
-import com.example.contacts.data.databases.DatabaseContactsManager;
+import com.example.contacts.data.database.DatabaseContactsManager;
 import com.example.contacts.domain.MainRepository;
 import com.example.contacts.domain.entities.Contact;
 
