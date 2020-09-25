@@ -1,7 +1,7 @@
 package com.example.contacts.data;
 
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceManager;
 
 import com.example.contacts.app.App;
 import com.example.contacts.domain.entities.Contact;
