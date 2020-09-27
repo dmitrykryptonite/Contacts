@@ -15,7 +15,7 @@ public class DatabaseContacts extends SQLiteOpenHelper {
     static final String NAME = "name";
     static final String CALL_NUMBER = "call_number";
     private static final String TIME_ADDED = "time_added";
-    private static final String CONTACT_ADDED = "nameAdded";
+    private static final String CONTACT_ADDED = "contact_Added";
 
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_CONTACTS + " (" +
